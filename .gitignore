@@ -1,3 +1,4 @@
 .idea
 hups.iml
 admin/src/main/resources/resources
+admin-client/node_modules
