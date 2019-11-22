@@ -1,3 +1,3 @@
 .idea
 hups.iml
-admin\src\main\resources\resources\*
+admin/src/main/resources/resources
