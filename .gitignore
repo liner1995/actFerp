@@ -3,4 +3,6 @@ hups.iml
 admin/src/main/resources/resources
 admin/target
 admin-client/node_modules
+admin-client/.history
 order-client/node_modules
+order-client/.history
