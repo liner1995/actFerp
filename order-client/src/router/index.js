@@ -56,24 +56,14 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/product',
     name: 'PRODUCT',
-    meta: { title: '我的产品', icon: 'example' },
+    meta: { title: '产品管理', icon: 'example' },
     children: [
       {
         path: 'productinfo',
         name: 'Productinfo',
         component: () => import('@/views/product/productinfo/productinfo'),
         meta: { title: '产品维护', icon: 'table' }
-      }
-    ]
-  },
-
-  {
-    path: '/orders',
-    component: Layout,
-    redirect: '/orders',
-    name: 'ORDERS',
-    meta: { title: '订单管理', icon: 'example' },
-    children: [
+      },
       {
         path: 'orderinfo',
         name: 'orderinfo',
@@ -82,6 +72,22 @@ export const constantRouterMap = [
       }
     ]
   },
+
+  // {
+  //   path: '/orders',
+  //   component: Layout,
+  //   redirect: '/orders',
+  //   name: 'ORDERS',
+  //   meta: { title: '订单管理', icon: 'example' },
+  //   children: [
+  //     {
+  //       path: 'orderinfo',
+  //       name: 'orderinfo',
+  //       component: () => import('@/views/orders/orderinfo/orderinfo'),
+  //       meta: { title: '我的订单', icon: 'table' }
+  //     }
+  //   ]
+  // },
 
   // { path: '*', redirect: '/404', hidden: true }
 ]
