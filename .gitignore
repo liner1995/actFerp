@@ -1,5 +1,6 @@
 .idea
 hups.iml
 admin/src/main/resources/resources
+admin/target
 admin-client/node_modules
 order-client/node_modules
