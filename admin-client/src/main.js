@@ -26,4 +26,4 @@ new Vue({
   router,
   store,
   render: h => h(App)
-})
+})1111111
