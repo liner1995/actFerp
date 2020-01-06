@@ -4,10 +4,18 @@
     @close="closeDialog"
     width="85%">
     <el-form :inline="true" ref="dataForm" :model="temp" label-position="left" label-width="120px">
-      <el-form-item label="活动名称">
-        <el-input v-model="temp.pkBtn"></el-input>
-      </el-form-item>
-
+      <el-collapse v-model="collapseActiveName" @change="handleCollapseChange">
+        <el-collapse-item title="产品名称" name="1">
+          <ProductInfoCard :tempData="temp.productInfo"></ProductInfoCard>
+        </el-collapse-item>
+        
+        <el-collapse-item title="客户信息" name="2">
+          <CustomerInfoCard :tempData="temp.customerInfo"></CustomerInfoCard>
+        </el-collapse-item>
+      </el-collapse>
+      <br/>
+      <br/>
+      <!--叶签操作合集-->
       <el-tabs type="border-card">
         <el-tab-pane label="销售发起">
         </el-tab-pane>
@@ -55,9 +63,12 @@
 <script>
 import { mapGetters } from 'vuex'
 import { initReplaceUpdateData, initReplaceAddData, parseTime, randomNum } from '@/utils/viewCompUtil'
+import ProductInfoCard from '@/views/product/compinfo/components/ProductInfoCard'
+import CustomerInfoCard from '@/views/product/compinfo/components/CustomerInfoCard'
 
 export default {
   name: 'Productcompcontent',
+  components: { ProductInfoCard, CustomerInfoCard },
   props: ["replace", "title", "visiable", 'action', 'updateRow'],
   computed: {
     ...mapGetters([
@@ -66,19 +77,24 @@ export default {
   },
   data() {
     return {
+      collapseActiveName: '1', // 折叠面板默认打开
       contentVisiable: true, // dialog 显示框
       temp: {
-        pkBtn: undefined,
+        // 产品信息
+        productInfo: {
+          productName: '测试产品111'
+        },
+        // 客户信息
+        customerInfo: {
+          customerName: '测试客户111'
+        }
       }
     }
   },
   watch: {
     visiable() {
       this.contentVisiable = this.visiable
-      if (this.title === '录入') {
-        this.restTemp()
-      }
-      if (this.title === '修改' && this.updateRow) {
+      if (this.title === '查看' && this.updateRow) {
         this.temp = this.updateRow
       }
     }
@@ -90,6 +106,9 @@ export default {
     sureDialog() { // 确定保存回调Dialog
       this.$emit('close', actTemp)
     },
+    handleCollapseChange(val) { // 监听折叠面板变化
+
+    },
     restTemp() { // 刷新本界面的数据
       this.temp = {
         pkBtn: undefined,
@@ -99,6 +118,25 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+  .text {
+    font-size: 14px;
+  }
 
+  .item {
+    margin-bottom: 18px;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+  .clearfix:after {
+    clear: both
+  }
+
+  .box-card {
+    width: 100%;
+  }
 </style>

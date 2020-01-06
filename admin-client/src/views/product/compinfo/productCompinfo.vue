@@ -23,7 +23,7 @@
 <script>
 import Table from '@/components/viewcomp/Table'
 import Productcompcontent from '@/views/product/compinfo/content'
-import { listSmBtn, addSmBtn, updateSmBtn, deleteSmBtnByPks } from '@/api/rbac/smbtn'
+import { listProduct } from '@/api/salemage/product'
 
 export default {
   name: "ProductCompinfo",
@@ -37,17 +37,22 @@ export default {
         updateRow: null // 更新时带过来的temp
       },
       columns: [
-        {prop: 'pkBtn', label: '主键', width: '10', primary: true},
+        {prop: 'pkProduct', label: '产品主键', width: '10', primary: true},
+        {prop: 'productName', label: '产品名称', width: '160'},
+        {prop: 'productCode', label: '产品编码', width: '160'},
+        {prop: 'customerName', label: '客户名称', width: '160'},
+        {prop: 'customerCode', label: '客户编码', width: '160'},
+        {prop: 'customerTel', label: '客户联系方式', width: '220'},
+        {prop: 'psndocName', label: '销售负责人', width: '220'},
       ],
       select: {
-        'select': listSmBtn
+        'select': listProduct,
+        'queryParam': { dr: 0 }
       },
       top_btn: [
-        {name: '录入',code: 'ADD',action: addSmBtn}
       ],
       act_btn: [
-        {name: '修改',code: 'UPDATE',action: updateSmBtn},
-        {name: '删除',code: 'DELETE',action: deleteSmBtnByPks}
+        {name: '查看',code: 'LOOKUP'},
       ],
       replace: [
         {name: 'valid',replace: {0:"启用",1:"禁用"}}
@@ -56,8 +61,8 @@ export default {
   },
   methods: {
     onButtonClick(param) { // 监控页面中所有的按钮点击事件
-      if (param.btnCode === 'ADD') {
-        this.openContent('录入', param.btnAction)
+      if (param.btnCode === 'LOOKUP') {
+        this.openContent('查看', null)
       }
     },
     openContent(title, action) { // 打开内容界面Dialog
