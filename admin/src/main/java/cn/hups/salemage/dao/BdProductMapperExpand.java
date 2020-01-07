@@ -1,6 +1,7 @@
 package cn.hups.salemage.dao;
 
 import cn.hups.common.po.ClientRefPo;
+import cn.hups.productMageMent.po.ProductMageMentPo;
 import cn.hups.purchase.po.BillMaterielPo;
 import cn.hups.salemage.po.BdProductPo;
 import org.apache.ibatis.annotations.Param;
@@ -53,6 +54,23 @@ public interface BdProductMapperExpand {
      */
     List<ClientRefPo> selectProductByPkCustomerAsRef(@Param("pkCustomer") Integer pkCustomer) throws SQLException;
 
+
+    /**
+     * 根据主键信息查询产品作为参照
+     * @param pkProduct
+     * @return
+     * @throws SQLException
+     */
+    ProductMageMentPo selectProductCustomerByPkProductAsRef(@Param("pkProduct") Integer pkProduct)throws SQLException;
+
+    /**
+     * 分页查询订单信息最为参照
+     * @param bdProductPo
+     * @return
+     * @throws SQLException
+     */
+    List<ProductMageMentPo> selectProductCustomerAsPage(@Param("bdProductPo") BdProductPo bdProductPo)throws SQLException;
+
     /**
      * 根据主键集合删除产品信息
      * @param pkArr
@@ -81,4 +99,6 @@ public interface BdProductMapperExpand {
      */
     int updateProductBillstateByExample(@Param("bdProductPo") BdProductPo bdProductPo,
                                         @Param("billState") Integer billState) throws SQLException;
+
+
 }

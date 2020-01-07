@@ -23,7 +23,7 @@
 <script>
 import Table from '@/components/viewcomp/Table'
 import Productcompcontent from '@/views/product/compinfo/content'
-import { listProduct } from '@/api/salemage/product'
+import { listProductCustomer } from '@/api/productMageMent/productMageMent'
 
 export default {
   name: "ProductCompinfo",
@@ -46,7 +46,8 @@ export default {
         {prop: 'psndocName', label: '销售负责人', width: '220'},
       ],
       select: {
-        'select': listProduct,
+        
+        //'select': listProductCustomer,
         'queryParam': { dr: 0 }
       },
       top_btn: [

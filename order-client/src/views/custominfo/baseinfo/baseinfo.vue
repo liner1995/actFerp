@@ -108,7 +108,7 @@
               </el-form-item>
 
               <el-form-item label="收货人" prop="takeoverPsn">
-                <el-select v-model="takeOverData.temp.takeoverPsn" placeholder="请选择">
+                <el-select v-model="takeOverData.temp.takeoverPsn" placeholder="请选择" @change="listname">
                   <el-option
                     v-for="item in customerDocOption"
                     :key="item.value"
@@ -119,7 +119,7 @@
               </el-form-item>
 
               <el-form-item label="联系电话" prop="takeoverTel">
-                <el-input v-model="takeOverData.temp.takeoverTel"></el-input>
+                <el-input v-model="takeOverData.temp.takeoverTel" :disabled="true"></el-input>
               </el-form-item>
 
               <el-form-item label="是否默认" prop="defaultis">
@@ -211,6 +211,13 @@ export default {
     this.pkCustomer = pkCustomer
   },
   methods: {
+    listname(data){
+      this.customerDocOption.map(item=>{
+        if(item.value===data){
+          this.$set(this.takeOverData.temp,'takeoverTel' ,item.defStr)
+        }
+      })
+    },
     resize() { // 拖动界面
       console.log('resize')
     },

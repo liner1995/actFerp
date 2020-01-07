@@ -82,11 +82,11 @@ export default {
       temp: {
         // 产品信息
         productInfo: {
-          productName: '测试产品111'
+          productName: '1'
         },
         // 客户信息
         customerInfo: {
-          customerName: '测试客户111'
+          customerName: '12'
         }
       }
     }

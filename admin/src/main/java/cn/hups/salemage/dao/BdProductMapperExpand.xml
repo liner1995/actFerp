@@ -328,7 +328,7 @@
         </if>
     </update>
 
-    <!--根据客户主键查询产品信息作为主键-->
+    <!--根据主键查询产品信息作为参照-->
     <select id="selectProductByPkCustomerAsRef" resultType="cn.hups.common.po.ClientRefPo">
         SELECT
         pk_product as value,
@@ -337,6 +337,221 @@
         WHERE dr = 0 AND technics_state = 22
         <if test="pkCustomer != null">
             AND pk_customer = #{pkCustomer}
+        </if>
+    </select>
+
+    <!--根据主键信息查询产品作为参照-->
+    <select id="selectProductCustomerByPkProductAsRef" resultType="cn.hups.productMageMent.po.ProductMageMentPo">
+        SELECT
+        bp.pk_product as pkProduct,
+        bp.name,
+        bp.code,
+        bp.model,
+        bp.purchase_contacts as purchaseContacts,
+        bp.skill_contacts as skillContacts,
+        bp.smt,
+        bp.dip,
+        bp.isinstal,
+        bp.instal_min as instalMin,
+        bp.istest,
+        bp.test_min as testMin,
+        bp.isaging,
+        bp.aging_min as agingMin,
+        bp.exe_standard as exeStandard,
+        bp.steel_mesh_source as steelMeshSource,
+        bp.defense,
+        bp.defense_area as defenseArea,
+        bp.seal_technics as sealTechnics,
+        bp.material_source as materialSource,
+        bp.ispcb,
+        bp.pcb_source as pcbSource,
+        bp.pcb_long as pcbLong,
+        bp.pcb_wide as pcbWide,
+        bp.pcb_thick as pcbThick,
+        bp.pcb_resist_color as pcbResistColor,
+        bp.pcb_char_color as pcbCharColor,
+        bp.pcb_resist_cover as pcbResistCover,
+        bp.pcb_pad_spary as pcbPadSpary,
+        bp.pcb_copper_thick as pcbCopperThick,
+        bp.pk_customer as pkCustomer,
+        bp.order_number as orderNumber,
+        bp.bom_filename as bomFilename,
+        bp.bom_filefullname as bomFilefullname,
+        bp.pcb_filename as pcbFilename,
+        bp.pcb_filefullname as pcbFilefullname,
+        bp.craft_filename as craftFilename,
+        bp.craft_filefullname as craftFilefullname,
+        bp.ismake_tool as ismakeTool,
+        bp.make_steel_mesh as makeSteelMesh,
+        bp.make_dip as makeDip,
+        bp.make_test as makeTest,
+        bp.make_defense as makeDefense,
+        bp.make_aging as makeAging,
+        bp.task_id as taskId,
+        bp.approver,
+        bp.approvetime,
+        bp.bill_state as billState,
+        bp.creator,
+        bp.creationtime,
+        bp.modifier,
+        bp.modifiedtime,
+        bp.dr,
+        bp.ts,
+        bp.special_technics as specialTechnics,
+        bp.process_instance_id as processInstanceId,
+        bp.technics_state as technicsState,
+        bp.order_count as orderCount,
+        bcu.name as customerName,
+        bcu.code as customerCode,
+        bcu.corpname as customerCorpname,
+        bcu.corpaddress,
+        bcu.tel,
+        bcu.trade,
+        bcu.pk_psndoc as pkPsndoc,
+        bcc.customname,
+        bcc.telnum,
+        bin.dutynum,
+        bin.corpname,
+        bin.invoice_address as invoiceAddress,
+        bin.invoice_tel as invoiceTel,
+        bin.invoice_bank as invoiceBank,
+        bin.invoice_account as invoiceAccount,
+        bin.addressee,
+        bin.addressee_tel as addresseeTel,
+        bin.addressee_adrs as addresseeAdrs,
+        bpc.psnname
+
+        FROM
+        bd_product bp
+        LEFT JOIN bd_customer bcu on bp.pk_customer = bcu.pk_customer AND bcu.dr = 0
+        LEFT JOIN bd_invoice bin on bin.pk_customer = bcu.pk_customer AND bin.dr = 0
+        LEFT JOIN bd_customdoc bcc on bcc.pk_customer = bcu.pk_customer AND bcc.dr = 0
+        LEFT JOIN bd_psndoc bpc on bpc.pk_psndoc = bp.pk_psndoc AND bcc.dr = 0
+        WHERE
+        bp.dr = 0 and pk_product = #{pkProduct}
+    </select>
+
+     <!--分页查询订单信息最为参照-->
+    <select id="selectProductCustomerAsPage" resultType="cn.hups.productMageMent.po.ProductMageMentPo">
+         SELECT
+        bp.pk_product as pkProduct,
+        bp.name,
+        bp.code,
+        bp.model,
+        bp.purchase_contacts as purchaseContacts,
+        bp.skill_contacts as skillContacts,
+        bp.smt,
+        bp.dip,
+        bp.isinstal,
+        bp.instal_min as instalMin,
+        bp.istest,
+        bp.test_min as testMin,
+        bp.isaging,
+        bp.aging_min as agingMin,
+        bp.exe_standard as exeStandard,
+        bp.steel_mesh_source as steelMeshSource,
+        bp.defense,
+        bp.defense_area as defenseArea,
+        bp.seal_technics as sealTechnics,
+        bp.material_source as materialSource,
+        bp.ispcb,
+        bp.pcb_source as pcbSource,
+        bp.pcb_long as pcbLong,
+        bp.pcb_wide as pcbWide,
+        bp.pcb_thick as pcbThick,
+        bp.pcb_resist_color as pcbResistColor,
+        bp.pcb_char_color as pcbCharColor,
+        bp.pcb_resist_cover as pcbResistCover,
+        bp.pcb_pad_spary as pcbPadSpary,
+        bp.pcb_copper_thick as pcbCopperThick,
+        bp.pk_customer as pkCustomer,
+        bp.order_number as orderNumber,
+        bp.bom_filename as bomFilename,
+        bp.bom_filefullname as bomFilefullname,
+        bp.pcb_filename as pcbFilename,
+        bp.pcb_filefullname as pcbFilefullname,
+        bp.craft_filename as craftFilename,
+        bp.craft_filefullname as craftFilefullname,
+        bp.ismake_tool as ismakeTool,
+        bp.make_steel_mesh as makeSteelMesh,
+        bp.make_dip as makeDip,
+        bp.make_test as makeTest,
+        bp.make_defense as makeDefense,
+        bp.make_aging as makeAging,
+        bp.task_id as taskId,
+        bp.approver,
+        bp.approvetime,
+        bp.bill_state as billState,
+        bp.creator,
+        bp.creationtime,
+        bp.modifier,
+        bp.modifiedtime,
+        bp.dr,
+        bp.ts,
+        bp.special_technics as specialTechnics,
+        bp.process_instance_id as processInstanceId,
+        bp.technics_state as technicsState,
+        bp.order_count as orderCount,
+        bcu.name as customerName,
+        bcu.code as customerCode,
+        bcu.corpname as customerCorpname,
+        bcu.corpaddress,
+        bcu.tel,
+        bcu.trade,
+        bcu.pk_psndoc as pkPsndoc,
+        bcc.customname,
+        bcc.telnum,
+        bin.dutynum,
+        bin.corpname,
+        bin.invoice_address as invoiceAddress,
+        bin.invoice_tel as invoiceTel,
+        bin.invoice_bank as invoiceBank,
+        bin.invoice_account as invoiceAccount,
+        bin.addressee,
+        bin.addressee_tel as addresseeTel,
+        bin.addressee_adrs as addresseeAdrs,
+        bpc.psnname
+        FROM
+        bd_product bp
+        LEFT JOIN bd_customer bcu on bp.pk_customer = bcu.pk_customer AND bcu.dr = 0
+        LEFT JOIN bd_invoice bin on bin.pk_customer = bcu.pk_customer AND bin.dr = 0
+        LEFT JOIN bd_customdoc bcc on bcc.pk_customer = bcu.pk_customer AND bcc.dr = 0
+        LEFT JOIN bd_psndoc bpc on bpc.pk_psndoc = bp.pk_psndoc AND bcc.dr = 0
+        WHERE
+        bp.dr = 0
+        <if test="bdProductPo != null and bdProductPo.name != null and bdProductPo.name != ''">
+            and bp.name = #{bdProductPo.name}
+        </if>
+        <if test="bdProductPo != null and bdProductPo.billState != null">
+            and bp.bill_state = #{bdProductPo.billState}
+        </if>
+        <if test="bdProductPo != null and bdProductPo.technicsState != null and bdProductPo.technicsState != ''">
+            and bp.technics_state = #{bdProductPo.technicsState}
+        </if>
+        <!--创建人权限条件-->
+        <if test="bdProductPo != null and bdProductPo.creator != null">
+            and bp.creator = #{bdProductPo.creator}
+        </if>
+        <!--任务认领查询条件-->
+        <if test="bdProductPo != null and bdProductPo.approver != null">
+            and bp.approver = #{bdProductPo.approver}
+        </if>
+        <!--查询模板条件-->
+        <if test="bdProductPo != null and bdProductPo.productCode != null and bdProductPo.productCode != ''">
+            AND instr(bp.code, #{bdProductPo.productCode}) > 0
+        </if>
+        <if test="bdProductPo != null and bdProductPo.pkPsndoc != null">
+            and bp.pk_psndoc = #{bdProductPo.pkPsndoc}
+        </if>
+        <if test="bdProductPo != null and bdProductPo.customShortName != null and bdProductPo.customShortName != ''">
+            AND instr(bcu.name, #{bdProductPo.customShortName}) > 0
+        </if>
+        <if test="bdProductPo != null and bdProductPo.billState != null">
+            and bp.bill_state = #{bdProductPo.billState}
+        </if>
+        <if test="bdProductPo != null and bdProductPo.creationdateBegin != null and bdProductPo.creationdateBegin != ''
+                                      and bdProductPo.creationdateEnd != null and bdProductPo.creationdateEnd != ''">
+            and bp.creationtime BETWEEN #{bdProductPo.creationdateBegin} AND #{bdProductPo.creationdateEnd}
         </if>
     </select>
 </mapper>
