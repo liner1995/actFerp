@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hups.productMageMent.dao.WfProductionMapperExpand">
+    <sql id="Base_Column_List" >
+    pk_production, pk_product, process, workshop, estimated_start_time, estimated_end_time,
+    actual_start_time, actual_end_time, estimated_number, actual_number, wf_state, creator,
+    creationtime, modifier, modifiertime, dr, ts
+  </sql>
+    <!--根据主键集合删除数据-->
+    <update id="deleteProductionByPs" parameterType="java.util.List">
+        UPDATE wf_production SET dr = 1
+        WHERE pk_production in
+        <foreach collection="pkArr" item="pk_production" open="(" close=")" separator=",">
+            #{pk_production}
+        </foreach>
+    </update>
+    <!--查询数据表中数量-->
+    <select id="countData" resultType="java.lang.Long">
+        SELECT count(pk_production)
+        FROM
+        wf_production
+        WHERE
+        dr = 0
+        <if test="productionPo != null and productionPo.pkProduction != null">
+            and pk_production = #{productionPo.pkProduction}
+        </if>
+        <if test="productionPo != null and productionPo.process != null">
+            and process = #{productionPo.process}
+        </if>
+        <if test="productionPo != null and productionPo.workshop != null">
+            and workshop = #{productionPo.workshop}
+        </if>
+        <!--创建人权限条件-->
+        <if test="productionPo != null and productionPo.creator != null">
+            and creator = #{productionPo.creator}
+        </if>
+
+        <if test="productionPo != null and productionPo.wfState != null">
+            and wf_state = #{productionPo.wfState}
+        </if>
+    </select>
+    <!--分页查询数据-->
+    <select id="selectAllProductionAsPage" resultType="cn.hups.productMageMent.po.ProductionPo">
+            select
+            <include refid="Base_Column_List" />
+            from wf_production
+            where dr = 0
+        <if test="productionPo != null and productionPo.pkProduction != null">
+            and pk_production = #{productionPo.pkProduction}
+        </if>
+        <if test="productionPo != null and productionPo.process != null">
+            and process = #{productionPo.process}
+        </if>
+        <if test="productionPo != null and productionPo.workshop != null">
+            and workshop = #{productionPo.workshop}
+        </if>
+        <!--创建人权限条件-->
+        <if test="productionPo != null and productionPo.creator != null">
+            and creator = #{productionPo.creator}
+        </if>
+
+        <if test="productionPo != null and productionPo.wfState != null">
+            and wf_state = #{productionPo.wfState}
+        </if>
+    </select>
+</mapper>
