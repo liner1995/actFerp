@@ -10,7 +10,7 @@ export function downloadProductFile(data) {
   })
 }
 
-// 根据文件名称下载文件
+// 发送钉钉消息
 export function sendDingMsgByPsndoc(data) {
   return axios({
     url: process.env.BASE_API + '/dingerp/sendDingMsgByPsndoc',

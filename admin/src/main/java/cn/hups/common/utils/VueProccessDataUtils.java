@@ -101,7 +101,7 @@ public class VueProccessDataUtils {
             Integer fatherId = (Integer)firstOne.get(VUE_MENUCOMP_ID);
             if (fatherId != null) {
                 for (Map<String, Object> allOne : allCatalogList) {
-                    if (allOne != null && fatherId == allOne.get(VUE_MENUCOMP_PARENTID)) {
+                    if (allOne != null && fatherId.intValue() == ((Integer)allOne.get(VUE_MENUCOMP_PARENTID)).intValue()) {
                         allOne.put(VUE_MENUCOMP_CHILDREN, getMenuChild(allOne, allCatalogList));
 
                         childList.add(allOne);
