@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.hups.productMageMent.dao.WfMaterialQcMapperExpand" >
+  <!--根据主键删除质检信息-->
+  <update id="deleteMaterialQcByPs" parameterType="java.util.List">
+    UPDATE wf_material_qc SET dr = 1
+    WHERE pk_material_qc in
+    <foreach collection="pkArr" item="pk_material_qc" open="(" close=")" separator=",">
+      #{pk_material_qc}
+    </foreach>
+  </update>
+
+  <!--查询质检信息数量-->
+  <select id="countData" resultType="java.lang.Long">
+    SELECT count(pk_material_qc)
+    FROM
+    wf_material_qc
+    WHERE
+    dr = 0
+    <if test="materialQcPo != null and materialQcPo.pkMaterialQc != null">
+      and pk_material_qc = #{materialQcPo.pkMaterialQc}
+    </if>
+    <!--创建人权限条件-->
+    <if test="materialQcPo != null and materialQcPo.creator != null">
+      and creator = #{materialQcPo.creator}
+    </if>
+    <if test="materialQcPo != null and materialQcPo.qcState != null">
+      and qc_state = #{materialQcPo.qcState}
+    </if>
+  </select>
+
+  <!--分页查询质检信息-->
+  <select id="selectAllMaterialQcAsPage" resultType="cn.hups.productMageMent.po.MaterialQcPo">
+    SELECT
+     pk_material_qc as pkMaterialQc,
+     pk_procuremen as pkProcuremen,
+     qc_state as qcState,
+     qc_explain as qcExplain,
+     filename, filefullnam, creator,
+    creationtime, modifier, modifiertime, dr, ts
+    FROM
+    wf_material_qc
+    WHERE
+    dr = 0
+    <if test="materialQcPo != null and materialQcPo.pkMaterialQc != null">
+      and pk_material_qc = #{materialQcPo.pkMaterialQc}
+    </if>
+    <!--创建人权限条件-->
+    <if test="materialQcPo != null and materialQcPo.creator != null">
+      and creator = #{materialQcPo.creator}
+    </if>
+    <if test="materialQcPo != null and materialQcPo.qcState != null">
+      and qc_state = #{materialQcPo.qcState}
+    </if>
+  </select>
+
+</mapper>

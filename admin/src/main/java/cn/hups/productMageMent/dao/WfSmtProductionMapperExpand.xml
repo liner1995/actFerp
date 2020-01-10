@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.hups.productMageMent.dao.WfSmtProductionMapperExpand" >
+
+  <sql id="Base_Column_List" >
+    pk_smt_production, pk_warehousing, process, smt_state, pickingtime, starttime, finishtime,
+    numbertime, production_name, completion_number, creator, creationtime, modifier,
+    modifiertime, dr, ts
+  </sql>
+<!--通过主键删除SMT生产信息-->
+  <update id="deleteSmtProductionByPs">
+    UPDATE wf_smt_production SET dr = 1
+    WHERE pk_smt_production in
+    <foreach collection="pkArr" item="pk_smt_production" open="(" close=")" separator=",">
+      #{pk_smt_production}
+    </foreach>
+  </update>
+
+  <!--查询SMT生产信息数量-->
+  <select id="countData" resultType="java.lang.Long">
+    SELECT
+    count(pk_smt_production)
+    FROM
+    wf_smt_production
+    WHERE
+    dr = 0
+    <if test="smtProductionPo != null and smtProductionPo.pkSmtProduction != null">
+      and pk_smt_production = #{smtProductionPo.pkSmtProduction}
+    </if>
+    <if test="smtProductionPo != null and smtProductionPo.process != null">
+      and process = #{smtProductionPo.process}
+    </if>
+    <!--创建人权限条件-->
+    <if test="smtProductionPo != null and smtProductionPo.creator != null">
+      and creator = #{SmtProductionPo.creator}
+    </if>
+    <if test="smtProductionPo != null and smtProductionPo.smtState != null">
+      and smt_state = #{smtProductionPo.smtState}
+    </if>
+  </select>
+  <!--分页查询SMT生产信息-->
+  <select id="selectAllSmtProductionAsPage" resultType="cn.hups.productMageMent.po.SmtProductionPo">
+    SELECT
+    pk_smt_production as pkSmtProduction,
+    pk_warehousing as pkWarehousing,
+    process,
+    smt_state as smtState,
+    pickingtime,
+    starttime,
+    finishtime,
+    numbertime,
+    production_name as productionName,
+    completion_number as completionNumber,
+    creator,
+    creationtime,
+    modifier,
+    modifiertime, dr, ts
+    FROM
+    wf_smt_production
+    WHERE
+    dr = 0
+    <if test="smtProductionPo != null and smtProductionPo.pkSmtProduction != null">
+      and pk_smt_production = #{smtProductionPo.pkSmtProduction}
+    </if>
+    <if test="smtProductionPo != null and smtProductionPo.process != null">
+      and process = #{smtProductionPo.process}
+    </if>
+    <!--创建人权限条件-->
+    <if test="smtProductionPo != null and smtProductionPo.creator != null">
+      and creator = #{SmtProductionPo.creator}
+    </if>
+    <if test="smtProductionPo != null and smtProductionPo.smtState != null">
+      and smt_state = #{smtProductionPo.smtState}
+    </if>
+  </select>
+</mapper>

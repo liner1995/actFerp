@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hups.productMageMent.dao.WfProcurmentMapperExpand">
+    <sql id="Base_Column_List" >
+    pk_procurement, pk_warehouse, process, pr_state, estimated_finish_time, actual_finish_time,
+    creator, creationtime, modifier, modifiertime, dr, ts
+  </sql>
+    <!--根据主键集合删除数据-->
+    <update id="deleteProcurmentByPs" parameterType="java.util.List">
+        UPDATE wf_procurement SET dr = 1
+        WHERE pk_procurement in
+        <foreach collection="pkArr" item="pk_procurement" open="(" close=")" separator=",">
+            #{pk_procurement}
+        </foreach>
+    </update>
+    <!--查询数据表中数量-->
+    <select id="countData" resultType="java.lang.Long">
+        SELECT count(pk_procurement)
+        FROM
+        wf_procurement
+        WHERE
+        dr = 0
+        <if test="procurementPo != null and procurementPo.pkProcurement != null">
+            and pk_procurement = #{procurementPo.pkProcurement}
+        </if>
+        <if test="procurementPo != null and procurementPo.process != null">
+            and process = #{procurementPo.process}
+        </if>
+        <!--创建人权限条件-->
+        <if test="procurementPo != null and procurementPo.creator != null">
+            and creator = #{procurementPo.creator}
+        </if>
+
+        <if test="procurementPo != null and procurementPo.prState != null">
+            and pr_state = #{procurementPo.prState}
+        </if>
+    </select>
+
+    <!--分页查询采购信息-->
+    <select id="selectAllProcurmentAsPage" resultType="cn.hups.productMageMent.po.ProcurementPo">
+        SELECT
+        pk_procurement as pkProcurement,
+        pk_warehouse as pkWarehouse,
+        process,
+        pr_state as prState,
+        estimated_finish_time as estimatedFinishTime,
+        actual_finish_time as actualFinishTime,
+        creator,
+        creationtime,
+        modifier,
+        modifiertime,
+        dr,
+        ts
+        FROM
+        wf_procurement
+        WHERE
+        dr = 0
+        <if test="procurementPo != null and procurementPo.pkProcurement != null">
+            and pk_procurement = #{procurementPo.pkProcurement}
+        </if>
+        <if test="procurementPo != null and procurementPo.process != null">
+            and process = #{procurementPo.process}
+        </if>
+        <!--创建人权限条件-->
+        <if test="procurementPo != null and procurementPo.creator != null">
+            and creator = #{procurementPo.creator}
+        </if>
+
+        <if test="procurementPo != null and procurementPo.prState != null">
+            and pr_state = #{procurementPo.prState}
+        </if>
+    </select>
+
+</mapper>

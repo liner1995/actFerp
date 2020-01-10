@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.hups.productMageMent.dao.WfFinishedMapperExpand" >
+
+    <!--根据主键删除成品质检信息-->
+    <update id="deleteFinishedByPs">
+        UPDATE wf_finished SET dr = 1
+        WHERE pk_finished in
+        <foreach collection="pkArr" item="pk_finished" open="(" close=")" separator=",">
+            #{pk_finished}
+        </foreach>
+    </update>
+    <!--查询成品质检信息总数-->
+    <select id="countData" resultType="java.lang.Long">
+        SELECT count(pk_finished)
+        FROM
+        wf_finished
+        WHERE
+        dr = 0
+        <if test="finishedPo != null and finishedPo.pkFinished != null">
+            and pk_finished = #{finishedPo.pkFinished}
+        </if>
+        <!--创建人权限条件-->
+        <if test="finishedPo != null and finishedPo.creator != null">
+            and creator = #{finishedPo.creator}
+        </if>
+        <if test="finishedPo != null and finishedPo.finState != null">
+            and fin_state = #{finishedPo.finState}
+        </if>
+    </select>
+
+    <!--分页查询成品质检信息-->
+    <select id="selectAllFinishedAsPage" resultType="cn.hups.productMageMent.po.FinishedPo">
+        SELECT
+        pk_finished as pkFinished,
+        pk_dip_production as pkDipProduction,
+        Serial,
+        process,
+        qc_number as qcNumber,
+        pass_number as passNumber,
+        pass_rate as passRate,
+        put_number as putNumber,
+        output_number as outputNumber,
+        accumulation,
+        filename,
+        filefullnam,
+        fin_state as finState,
+        creator,
+        creationtime,
+        modifier,
+        modifiertime,
+        dr,
+        ts
+        FROM
+        wf_finished
+        WHERE
+        dr = 0
+        <if test="finishedPo != null and finishedPo.pkFinished != null">
+            and pk_finished = #{finishedPo.pkFinished}
+        </if>
+        <!--创建人权限条件-->
+        <if test="finishedPo != null and finishedPo.creator != null">
+            and creator = #{finishedPo.creator}
+        </if>
+        <if test="finishedPo != null and finishedPo.finState != null">
+            and fin_state = #{finishedPo.finState}
+        </if>
+    </select>
+
+</mapper>

@@ -2,9 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.hups.productMageMent.dao.WfProductionMapperExpand">
     <sql id="Base_Column_List" >
-    pk_production, pk_product, process, workshop, estimated_start_time, estimated_end_time,
-    actual_start_time, actual_end_time, estimated_number, actual_number, wf_state, creator,
-    creationtime, modifier, modifiertime, dr, ts
+    pk_production as pkProduction,
+     pk_product as pkProduct,
+     process,
+     workshop,
+     estimated_start_time as estimatedStartTime,
+     estimated_end_time as estimatedEndTime,
+     actual_start_time as actualStartTime,
+     actual_end_time as actualEndTime,
+     estimated_number as estimatedNumber,
+     actual_number as actualNumber,
+     wf_state as wfState,
+     creator,
+     creationtime,
+     modifier, modifiertime, dr, ts
   </sql>
     <!--根据主键集合删除数据-->
     <update id="deleteProductionByPs" parameterType="java.util.List">

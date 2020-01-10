@@ -2,7 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.hups.productMageMent.dao.WfWarehouseMapperExpand" >
     <sql id="Base_Column_List" >
-    pk_warehouse, pk_production, wh_state, filename, filefullnam, creator, creationtime,
+    pk_warehouse as pkWarehouse,
+    pk_production as pkProduction,
+    wh_state as whState,
+    filename,
+    filefullnam, creator, creationtime,
     modifier, modifiedtime, dr, ts
   </sql>
     <!--根据主键集合删除数据-->

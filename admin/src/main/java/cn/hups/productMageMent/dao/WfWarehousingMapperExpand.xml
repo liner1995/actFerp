@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.hups.productMageMent.dao.WfWarehousingMapperExpand" >
+  <!--根据主键集合删除产品信息-->
+  <update id="deleteWarehousingByPs">
+    UPDATE wf_warehousing SET dr = 1
+    WHERE pk_warehousing in
+    <foreach collection="pkArr" item="pk_warehousing" open="(" close=")" separator=",">
+      #{pk_warehousing}
+    </foreach>
+  </update>
+
+  <!--分页查询所有入库信息-->
+  <select id="selectAllWarehousingPoAsPage" resultType="cn.hups.productMageMent.po.WarehousingPo">
+    SELECT
+    pk_warehousing as pkWarehousing,
+    material_qc as materialQc,
+    process ,
+    w_state as wState,
+    filefullnam,
+    filename, creator, creationtime,
+    modifier, modifiertime, dr, ts
+    FROM
+    wf_warehousing
+    WHERE
+    dr = 0
+    <if test="warehousingPo != null and warehousingPo.pkWarehousing != null">
+      and pk_warehousing = #{warehousingPo.pkWarehousing}
+    </if>
+    <!--创建人权限条件-->
+    <if test="warehousingPo != null and warehousingPo.creator != null">
+      and creator = #{warehousingPo.creator}
+    </if>
+    <if test="warehousingPo != null and warehousingPo.wState != null">
+      and w_state = #{warehousingPo.wState}
+    </if>
+  </select>
+
+  <!--查询表中数据数量-->
+  <select id="countData" resultType="java.lang.Long">
+    SELECT
+    count(pk_warehousing)
+    FROM
+    wf_warehousing
+    WHERE
+    dr = 0
+    <if test="warehousingPo != null and warehousingPo.pkWarehousing != null">
+      and pk_warehousing = #{warehousingPo.pkWarehousing}
+    </if>
+    <!--创建人权限条件-->
+    <if test="warehousingPo != null and warehousingPo.creator != null">
+      and creator = #{warehousingPo.creator}
+    </if>
+    <if test="warehousingPo != null and warehousingPo.wState != null">
+      and w_state = #{warehousingPo.wState}
+    </if>
+
+  </select>
+</mapper>

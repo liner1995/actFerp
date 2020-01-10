@@ -8,14 +8,7 @@ export function listProduct(data) {
         data
     })
 }
-// 分页查询所有产品信息
-export function listProductCustomer(data) {
-    return request({
-        url: '/product/selectProductCustomerAsPage',
-        method: 'post',
-        data
-    })
-}
+
 
 
 // 新增产品信息

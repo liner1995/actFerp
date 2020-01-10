@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.hups.productMageMent.dao.WfWarehousingMapper" >
+  <resultMap id="BaseResultMap" type="cn.hups.productMageMent.entity.WfWarehousing" >
+    <constructor >
+      <idArg column="pk_warehousing" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="material_qc" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="process" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="w_state" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="filefullnam" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="filename" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="creator" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="creationtime" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="modifier" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="modifiertime" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="dr" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="ts" jdbcType="CHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pk_warehousing, material_qc, process, w_state, filefullnam, filename, creator, creationtime, 
+    modifier, modifiertime, dr, ts
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.hups.productMageMent.entity.WfWarehousingExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wf_warehousing
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from wf_warehousing
+    where pk_warehousing = #{pkWarehousing,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from wf_warehousing
+    where pk_warehousing = #{pkWarehousing,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.hups.productMageMent.entity.WfWarehousingExample" >
+    delete from wf_warehousing
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.hups.productMageMent.entity.WfWarehousing" >
+    insert into wf_warehousing (pk_warehousing, material_qc, process, 
+      w_state, filefullnam, filename, 
+      creator, creationtime, modifier, 
+      modifiertime, dr, ts)
+    values (#{pkWarehousing,jdbcType=INTEGER}, #{materialQc,jdbcType=INTEGER}, #{process,jdbcType=VARCHAR}, 
+      #{wState,jdbcType=INTEGER}, #{filefullnam,jdbcType=VARCHAR}, #{filename,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=INTEGER}, #{creationtime,jdbcType=CHAR}, #{modifier,jdbcType=INTEGER}, 
+      #{modifiertime,jdbcType=CHAR}, #{dr,jdbcType=INTEGER}, #{ts,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.hups.productMageMent.entity.WfWarehousing" >
+    <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="pkWarehousing">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into wf_warehousing
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pkWarehousing != null" >
+        pk_warehousing,
+      </if>
+      <if test="materialQc != null" >
+        material_qc,
+      </if>
+      <if test="process != null" >
+        process,
+      </if>
+      <if test="wState != null" >
+        w_state,
+      </if>
+      <if test="filefullnam != null" >
+        filefullnam,
+      </if>
+      <if test="filename != null" >
+        filename,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="creationtime != null" >
+        creationtime,
+      </if>
+      <if test="modifier != null" >
+        modifier,
+      </if>
+      <if test="modifiertime != null" >
+        modifiertime,
+      </if>
+      <if test="dr != null" >
+        dr,
+      </if>
+      <if test="ts != null" >
+        ts,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pkWarehousing != null" >
+        #{pkWarehousing,jdbcType=INTEGER},
+      </if>
+      <if test="materialQc != null" >
+        #{materialQc,jdbcType=INTEGER},
+      </if>
+      <if test="process != null" >
+        #{process,jdbcType=VARCHAR},
+      </if>
+      <if test="wState != null" >
+        #{wState,jdbcType=INTEGER},
+      </if>
+      <if test="filefullnam != null" >
+        #{filefullnam,jdbcType=VARCHAR},
+      </if>
+      <if test="filename != null" >
+        #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="creationtime != null" >
+        #{creationtime,jdbcType=CHAR},
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=INTEGER},
+      </if>
+      <if test="modifiertime != null" >
+        #{modifiertime,jdbcType=CHAR},
+      </if>
+      <if test="dr != null" >
+        #{dr,jdbcType=INTEGER},
+      </if>
+      <if test="ts != null" >
+        #{ts,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.hups.productMageMent.entity.WfWarehousingExample" resultType="java.lang.Integer" >
+    select count(*) from wf_warehousing
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update wf_warehousing
+    <set >
+      <if test="record.pkWarehousing != null" >
+        pk_warehousing = #{record.pkWarehousing,jdbcType=INTEGER},
+      </if>
+      <if test="record.materialQc != null" >
+        material_qc = #{record.materialQc,jdbcType=INTEGER},
+      </if>
+      <if test="record.process != null" >
+        process = #{record.process,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wState != null" >
+        w_state = #{record.wState,jdbcType=INTEGER},
+      </if>
+      <if test="record.filefullnam != null" >
+        filefullnam = #{record.filefullnam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filename != null" >
+        filename = #{record.filename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creator != null" >
+        creator = #{record.creator,jdbcType=INTEGER},
+      </if>
+      <if test="record.creationtime != null" >
+        creationtime = #{record.creationtime,jdbcType=CHAR},
+      </if>
+      <if test="record.modifier != null" >
+        modifier = #{record.modifier,jdbcType=INTEGER},
+      </if>
+      <if test="record.modifiertime != null" >
+        modifiertime = #{record.modifiertime,jdbcType=CHAR},
+      </if>
+      <if test="record.dr != null" >
+        dr = #{record.dr,jdbcType=INTEGER},
+      </if>
+      <if test="record.ts != null" >
+        ts = #{record.ts,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update wf_warehousing
+    set pk_warehousing = #{record.pkWarehousing,jdbcType=INTEGER},
+      material_qc = #{record.materialQc,jdbcType=INTEGER},
+      process = #{record.process,jdbcType=VARCHAR},
+      w_state = #{record.wState,jdbcType=INTEGER},
+      filefullnam = #{record.filefullnam,jdbcType=VARCHAR},
+      filename = #{record.filename,jdbcType=VARCHAR},
+      creator = #{record.creator,jdbcType=INTEGER},
+      creationtime = #{record.creationtime,jdbcType=CHAR},
+      modifier = #{record.modifier,jdbcType=INTEGER},
+      modifiertime = #{record.modifiertime,jdbcType=CHAR},
+      dr = #{record.dr,jdbcType=INTEGER},
+      ts = #{record.ts,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.hups.productMageMent.entity.WfWarehousing" >
+    update wf_warehousing
+    <set >
+      <if test="materialQc != null" >
+        material_qc = #{materialQc,jdbcType=INTEGER},
+      </if>
+      <if test="process != null" >
+        process = #{process,jdbcType=VARCHAR},
+      </if>
+      <if test="wState != null" >
+        w_state = #{wState,jdbcType=INTEGER},
+      </if>
+      <if test="filefullnam != null" >
+        filefullnam = #{filefullnam,jdbcType=VARCHAR},
+      </if>
+      <if test="filename != null" >
+        filename = #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="creationtime != null" >
+        creationtime = #{creationtime,jdbcType=CHAR},
+      </if>
+      <if test="modifier != null" >
+        modifier = #{modifier,jdbcType=INTEGER},
+      </if>
+      <if test="modifiertime != null" >
+        modifiertime = #{modifiertime,jdbcType=CHAR},
+      </if>
+      <if test="dr != null" >
+        dr = #{dr,jdbcType=INTEGER},
+      </if>
+      <if test="ts != null" >
+        ts = #{ts,jdbcType=CHAR},
+      </if>
+    </set>
+    where pk_warehousing = #{pkWarehousing,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.hups.productMageMent.entity.WfWarehousing" >
+    update wf_warehousing
+    set material_qc = #{materialQc,jdbcType=INTEGER},
+      process = #{process,jdbcType=VARCHAR},
+      w_state = #{wState,jdbcType=INTEGER},
+      filefullnam = #{filefullnam,jdbcType=VARCHAR},
+      filename = #{filename,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=INTEGER},
+      creationtime = #{creationtime,jdbcType=CHAR},
+      modifier = #{modifier,jdbcType=INTEGER},
+      modifiertime = #{modifiertime,jdbcType=CHAR},
+      dr = #{dr,jdbcType=INTEGER},
+      ts = #{ts,jdbcType=CHAR}
+    where pk_warehousing = #{pkWarehousing,jdbcType=INTEGER}
+  </update>
+</mapper>

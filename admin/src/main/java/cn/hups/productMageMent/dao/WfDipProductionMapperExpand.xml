@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.hups.productMageMent.dao.WfDipProductionMapperExpand" >
+
+<!--根据主键删除Dip生产信息-->
+  <update id="deleteDipProductionByPs">
+    UPDATE wf_dip_production SET dr = 1
+    WHERE pk_dip_production in
+    <foreach collection="pkArr" item="pk_dip_production" open="(" close=")" separator=",">
+      #{pk_dip_production}
+    </foreach>
+  </update>
+  <!--查询Dip生产信息总量-->
+  <select id="countData" resultType="java.lang.Long">
+    SELECT count(pk_dip_production)
+    FROM
+    wf_dip_production
+    WHERE
+    dr = 0
+    <if test="dipProductionPo != null and dipProductionPo.pkDipProduction != null">
+      and pk_dip_production = #{dipProductionPo.pkDipProduction}
+    </if>
+    <!--创建人权限条件-->
+    <if test="dipProductionPo != null and dipProductionPo.creator != null">
+      and creator = #{dipProductionPo.creator}
+    </if>
+    <if test="dipProductionPo != null and dipProductionPo.dipState != null">
+      and dip_state = #{dipProductionPo.dipState}
+    </if>
+  </select>
+  <!--分页查询Dip生产信息-->
+  <select id="selectAllDipProductionAsPage" resultType="cn.hups.productMageMent.po.DipProductionPo">
+    SELECT
+    pk_dip_production as pkDipProduction,
+    pk_smt_production as pkSmtProduction,
+    process,
+    dip_state dipState,
+    pickingtime,
+    starttime,
+    finishtime,
+    numbertime,
+    completion_number completionNumber,
+    creator, creationtime, modifier, modifiertime,
+    dr, ts
+    FROM
+    wf_dip_production
+    WHERE
+    dr = 0
+    <if test="dipProductionPo != null and dipProductionPo.pkDipProduction != null">
+      and pk_dip_production = #{dipProductionPo.pkDipProduction}
+    </if>
+    <!--创建人权限条件-->
+    <if test="dipProductionPo != null and dipProductionPo.creator != null">
+      and creator = #{dipProductionPo.creator}
+    </if>
+    <if test="dipProductionPo != null and dipProductionPo.dipState != null">
+      and dip_state = #{dipProductionPo.dipState}
+    </if>
+  </select>
+</mapper>

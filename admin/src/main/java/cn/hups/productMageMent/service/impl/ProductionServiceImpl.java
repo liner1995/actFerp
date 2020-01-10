@@ -19,7 +19,7 @@ import javax.annotation.Resource;
 import java.sql.SQLException;
 import java.util.List;
 
-@Service("IProductionService")
+@Service("iProductionService")
 public class ProductionServiceImpl implements IProductionService {
 
     AjaxJson ajaxJson = new AjaxJson();

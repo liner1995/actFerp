@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.hups.productMageMent.dao.WfBillingMapper" >
+  <resultMap id="BaseResultMap" type="cn.hups.productMageMent.entity.WfBilling" >
+    <constructor >
+      <idArg column="pk_billing" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="pk_finished" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="invoice_no" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="bill_number" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="bill_money" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="filename" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="filefullnam" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="bill_state" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="creator" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="creationtime" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="modifier" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="modifiertime" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="dr" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="ts" jdbcType="CHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pk_billing, pk_finished, invoice_no, bill_number, bill_money, filename, filefullnam, 
+    bill_state, creator, creationtime, modifier, modifiertime, dr, ts
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.hups.productMageMent.entity.WfBillingExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wf_billing
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from wf_billing
+    where pk_billing = #{pkBilling,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from wf_billing
+    where pk_billing = #{pkBilling,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.hups.productMageMent.entity.WfBillingExample" >
+    delete from wf_billing
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.hups.productMageMent.entity.WfBilling" >
+    insert into wf_billing (pk_billing, pk_finished, invoice_no, 
+      bill_number, bill_money, filename, 
+      filefullnam, bill_state, creator, 
+      creationtime, modifier, modifiertime, 
+      dr, ts)
+    values (#{pkBilling,jdbcType=INTEGER}, #{pkFinished,jdbcType=INTEGER}, #{invoiceNo,jdbcType=VARCHAR}, 
+      #{billNumber,jdbcType=INTEGER}, #{billMoney,jdbcType=DECIMAL}, #{filename,jdbcType=VARCHAR}, 
+      #{filefullnam,jdbcType=VARCHAR}, #{billState,jdbcType=INTEGER}, #{creator,jdbcType=INTEGER}, 
+      #{creationtime,jdbcType=CHAR}, #{modifier,jdbcType=INTEGER}, #{modifiertime,jdbcType=CHAR}, 
+      #{dr,jdbcType=INTEGER}, #{ts,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.hups.productMageMent.entity.WfBilling" >
+    <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="pkBilling">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into wf_billing
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pkBilling != null" >
+        pk_billing,
+      </if>
+      <if test="pkFinished != null" >
+        pk_finished,
+      </if>
+      <if test="invoiceNo != null" >
+        invoice_no,
+      </if>
+      <if test="billNumber != null" >
+        bill_number,
+      </if>
+      <if test="billMoney != null" >
+        bill_money,
+      </if>
+      <if test="filename != null" >
+        filename,
+      </if>
+      <if test="filefullnam != null" >
+        filefullnam,
+      </if>
+      <if test="billState != null" >
+        bill_state,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="creationtime != null" >
+        creationtime,
+      </if>
+      <if test="modifier != null" >
+        modifier,
+      </if>
+      <if test="modifiertime != null" >
+        modifiertime,
+      </if>
+      <if test="dr != null" >
+        dr,
+      </if>
+      <if test="ts != null" >
+        ts,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pkBilling != null" >
+        #{pkBilling,jdbcType=INTEGER},
+      </if>
+      <if test="pkFinished != null" >
+        #{pkFinished,jdbcType=INTEGER},
+      </if>
+      <if test="invoiceNo != null" >
+        #{invoiceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="billNumber != null" >
+        #{billNumber,jdbcType=INTEGER},
+      </if>
+      <if test="billMoney != null" >
+        #{billMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="filename != null" >
+        #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="filefullnam != null" >
+        #{filefullnam,jdbcType=VARCHAR},
+      </if>
+      <if test="billState != null" >
+        #{billState,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="creationtime != null" >
+        #{creationtime,jdbcType=CHAR},
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=INTEGER},
+      </if>
+      <if test="modifiertime != null" >
+        #{modifiertime,jdbcType=CHAR},
+      </if>
+      <if test="dr != null" >
+        #{dr,jdbcType=INTEGER},
+      </if>
+      <if test="ts != null" >
+        #{ts,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.hups.productMageMent.entity.WfBillingExample" resultType="java.lang.Integer" >
+    select count(*) from wf_billing
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update wf_billing
+    <set >
+      <if test="record.pkBilling != null" >
+        pk_billing = #{record.pkBilling,jdbcType=INTEGER},
+      </if>
+      <if test="record.pkFinished != null" >
+        pk_finished = #{record.pkFinished,jdbcType=INTEGER},
+      </if>
+      <if test="record.invoiceNo != null" >
+        invoice_no = #{record.invoiceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.billNumber != null" >
+        bill_number = #{record.billNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.billMoney != null" >
+        bill_money = #{record.billMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.filename != null" >
+        filename = #{record.filename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filefullnam != null" >
+        filefullnam = #{record.filefullnam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.billState != null" >
+        bill_state = #{record.billState,jdbcType=INTEGER},
+      </if>
+      <if test="record.creator != null" >
+        creator = #{record.creator,jdbcType=INTEGER},
+      </if>
+      <if test="record.creationtime != null" >
+        creationtime = #{record.creationtime,jdbcType=CHAR},
+      </if>
+      <if test="record.modifier != null" >
+        modifier = #{record.modifier,jdbcType=INTEGER},
+      </if>
+      <if test="record.modifiertime != null" >
+        modifiertime = #{record.modifiertime,jdbcType=CHAR},
+      </if>
+      <if test="record.dr != null" >
+        dr = #{record.dr,jdbcType=INTEGER},
+      </if>
+      <if test="record.ts != null" >
+        ts = #{record.ts,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update wf_billing
+    set pk_billing = #{record.pkBilling,jdbcType=INTEGER},
+      pk_finished = #{record.pkFinished,jdbcType=INTEGER},
+      invoice_no = #{record.invoiceNo,jdbcType=VARCHAR},
+      bill_number = #{record.billNumber,jdbcType=INTEGER},
+      bill_money = #{record.billMoney,jdbcType=DECIMAL},
+      filename = #{record.filename,jdbcType=VARCHAR},
+      filefullnam = #{record.filefullnam,jdbcType=VARCHAR},
+      bill_state = #{record.billState,jdbcType=INTEGER},
+      creator = #{record.creator,jdbcType=INTEGER},
+      creationtime = #{record.creationtime,jdbcType=CHAR},
+      modifier = #{record.modifier,jdbcType=INTEGER},
+      modifiertime = #{record.modifiertime,jdbcType=CHAR},
+      dr = #{record.dr,jdbcType=INTEGER},
+      ts = #{record.ts,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.hups.productMageMent.entity.WfBilling" >
+    update wf_billing
+    <set >
+      <if test="pkFinished != null" >
+        pk_finished = #{pkFinished,jdbcType=INTEGER},
+      </if>
+      <if test="invoiceNo != null" >
+        invoice_no = #{invoiceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="billNumber != null" >
+        bill_number = #{billNumber,jdbcType=INTEGER},
+      </if>
+      <if test="billMoney != null" >
+        bill_money = #{billMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="filename != null" >
+        filename = #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="filefullnam != null" >
+        filefullnam = #{filefullnam,jdbcType=VARCHAR},
+      </if>
+      <if test="billState != null" >
+        bill_state = #{billState,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="creationtime != null" >
+        creationtime = #{creationtime,jdbcType=CHAR},
+      </if>
+      <if test="modifier != null" >
+        modifier = #{modifier,jdbcType=INTEGER},
+      </if>
+      <if test="modifiertime != null" >
+        modifiertime = #{modifiertime,jdbcType=CHAR},
+      </if>
+      <if test="dr != null" >
+        dr = #{dr,jdbcType=INTEGER},
+      </if>
+      <if test="ts != null" >
+        ts = #{ts,jdbcType=CHAR},
+      </if>
+    </set>
+    where pk_billing = #{pkBilling,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.hups.productMageMent.entity.WfBilling" >
+    update wf_billing
+    set pk_finished = #{pkFinished,jdbcType=INTEGER},
+      invoice_no = #{invoiceNo,jdbcType=VARCHAR},
+      bill_number = #{billNumber,jdbcType=INTEGER},
+      bill_money = #{billMoney,jdbcType=DECIMAL},
+      filename = #{filename,jdbcType=VARCHAR},
+      filefullnam = #{filefullnam,jdbcType=VARCHAR},
+      bill_state = #{billState,jdbcType=INTEGER},
+      creator = #{creator,jdbcType=INTEGER},
+      creationtime = #{creationtime,jdbcType=CHAR},
+      modifier = #{modifier,jdbcType=INTEGER},
+      modifiertime = #{modifiertime,jdbcType=CHAR},
+      dr = #{dr,jdbcType=INTEGER},
+      ts = #{ts,jdbcType=CHAR}
+    where pk_billing = #{pkBilling,jdbcType=INTEGER}
+  </update>
+</mapper>

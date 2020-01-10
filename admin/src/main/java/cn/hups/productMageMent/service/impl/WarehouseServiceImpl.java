@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * 库房备料流程
  */
-@Service("IWarehouseService")
+@Service("iWarehouseService")
 public class WarehouseServiceImpl implements IWarehouseService {
 
     AjaxJson ajaxJson = new AjaxJson();
