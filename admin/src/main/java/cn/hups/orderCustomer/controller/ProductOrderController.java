@@ -2,6 +2,7 @@ package cn.hups.orderCustomer.controller;
 
 import cn.hups.common.exception.GlobalException;
 import cn.hups.common.utils.AjaxJson;
+import cn.hups.customer.po.BdCustomdocPo;
 import cn.hups.orderCustomer.po.BillProductOrderHPo;
 import cn.hups.orderCustomer.service.IProductOrderService;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,6 +31,7 @@ public class ProductOrderController {
     public AjaxJson selectAllProductOrderAsPage(@RequestBody BillProductOrderHPo billProductOrderHPo) throws GlobalException {
         return iProductOrderService.selectAllProductOrderAsPage(billProductOrderHPo);
     }
+
 
     /**
      * 根据客户主键信息查询产品作为参照

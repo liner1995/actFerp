@@ -4,6 +4,9 @@ import cn.hups.common.exception.GlobalException;
 import cn.hups.common.utils.AjaxJson;
 import cn.hups.orderCustomer.po.BillProductOrderHPo;
 
+import java.sql.SQLException;
+import java.util.List;
+
 /**
  * 客户订单Service
  */
@@ -64,4 +67,6 @@ public interface IProductOrderService {
      * @throws GlobalException
      */
     AjaxJson updateProductOrder(BillProductOrderHPo billProductOrderHPo) throws GlobalException;
+
+
 }

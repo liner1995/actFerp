@@ -1,5 +1,6 @@
 package cn.hups.orderCustomer.dao;
 
+import cn.hups.orderCustomer.entity.BillProductOrderB;
 import cn.hups.orderCustomer.po.BdOrderProductPo;
 import cn.hups.orderCustomer.po.BillProductOrderHPo;
 import org.apache.ibatis.annotations.Param;
@@ -19,6 +20,8 @@ public interface BillProductOrderHMapperExpand {
      * @throws SQLException
      */
     Long countData(@Param("billProductOrderHPo") BillProductOrderHPo billProductOrderHPo) throws SQLException;
+
+
 
     /**
      * 分页查询表中数据数量
@@ -52,6 +55,8 @@ public interface BillProductOrderHMapperExpand {
      */
     List<BdOrderProductPo> selectAllSaleOrderProductAsPage(@Param("billProductOrderHPo") BillProductOrderHPo billProductOrderHPo) throws SQLException;
 
+
+
     /**
      * 根据主键集合删除主表中数据
      * @param pkArr
@@ -67,4 +72,6 @@ public interface BillProductOrderHMapperExpand {
      * @throws SQLException
      */
     int deleteProductOrderBodyByPks(@Param("pkArr") List<Integer> pkArr) throws SQLException;
+
+
 }

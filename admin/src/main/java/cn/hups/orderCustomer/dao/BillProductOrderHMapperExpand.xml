@@ -279,6 +279,53 @@
                 AND bporderb.pk_product_order = #{billProductOrderHPo.pkProductOrder}
             </if>
     </select>
+    <select id="selectAllOrderProductBAsRef" resultType="cn.hups.orderCustomer.po.BillProductOrderHPo">
+        SELECT
+        bh.contract_no as contractNo,
+        bh.taxinclud,
+        bh.urgent,
+        bh.transport_type as transportType,
+        bb.product_num as productNum,
+        bp.code as productCode,
+        bp.name as productName,
+        bp.model as productModel,
+        bp.isinstal,
+        bp.istest,
+        bp.isaging,
+        bp.defense,
+        bp.seal_technics as sealTechnics,
+        bp.make_dip as makeDip,
+        bp.make_test as makeTest,
+        bp.make_aging as makeAging,
+        bp.make_defense as makeDefense,
+        bp.exe_standard as exeStandard,
+        bp.steel_mesh_source as steelMeshSource,
+        bp.pcb_source as pcbSource,
+        bp.material_source as materialSource,
+        bp.purchase_contacts as purchaseContacts,
+        bp.skill_contacts as skillContacts,
+        bpc.psnname,
+        bt.takeover_psn as takeoverPsn,
+        bt.address,
+        bt.takeover_tel as takeoverTel
+        FROM
+        bill_product_order_h bh
+        LEFT JOIN bill_product_order_b bb on bh.pk_product_order = bb.pk_product_order
+        AND bh.dr = 0
+        LEFT JOIN bd_product bp on bb.pk_product = bp.pk_product
+        AND bb.dr = 0
+        LEFT JOIN bd_psndoc bpc on bh.pk_psndoc = bpc.pk_psndoc
+        AND bb.dr = 0
+        LEFT JOIN bd_takeover bt on bh.pk_takeover = bt.pk_takeover
+        AND bb.dr = 0
+        WHERE
+        <if test="billProductOrderHPo != null and billProductOrderHPo.pkProductOrder != null">
+        bh.dr=0 AND bh.pk_product_order = #{billProductOrderHPo.pkProductOrder}
+        </if>
+
+
+
+    </select>
 
     <!--根据主键集合删除产品订单数据-->
     <update id="deleteProductOrderHByPks" parameterType="java.util.List">

@@ -9,14 +9,6 @@ import java.util.List;
  */
 public class BillProductOrderHPo extends BillProductOrderH {
 
-    // 客户名称
-    private String customerName;
-
-    // 客户联系方式
-    private String customerTel;
-
-    // 客户公司地址
-    private String corpaddress;
 
     // 供料方式显示名称
     private String materialSourceShow;
@@ -32,30 +24,6 @@ public class BillProductOrderHPo extends BillProductOrderH {
 
     // 子表数据
     private List<BillProductOrderBPo> billProductOrderBPoList;
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public String getCustomerTel() {
-        return customerTel;
-    }
-
-    public void setCustomerTel(String customerTel) {
-        this.customerTel = customerTel;
-    }
-
-    public String getCorpaddress() {
-        return corpaddress;
-    }
-
-    public void setCorpaddress(String corpaddress) {
-        this.corpaddress = corpaddress;
-    }
 
     public String getMaterialSourceShow() {
         return materialSourceShow;
@@ -96,4 +64,5 @@ public class BillProductOrderHPo extends BillProductOrderH {
     public void setBillProductOrderBPoList(List<BillProductOrderBPo> billProductOrderBPoList) {
         this.billProductOrderBPoList = billProductOrderBPoList;
     }
+
 }

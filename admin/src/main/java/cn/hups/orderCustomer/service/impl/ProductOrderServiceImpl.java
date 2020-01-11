@@ -8,7 +8,10 @@ import cn.hups.common.utils.AjaxJson;
 import cn.hups.common.utils.AuthUtil;
 import cn.hups.common.utils.DateUtils;
 import cn.hups.common.utils.StringUtils;
+import cn.hups.customer.dao.BdCustomdocMapper;
 import cn.hups.customer.dao.CustomInfoMapper;
+import cn.hups.customer.entity.BdCustomdoc;
+import cn.hups.customer.po.BdCustomdocPo;
 import cn.hups.customer.po.BdTakeoverPo;
 import cn.hups.orderCustomer.dao.BillProductOrderBMapper;
 import cn.hups.orderCustomer.dao.BillProductOrderHMapper;
@@ -20,6 +23,7 @@ import cn.hups.salemage.dao.BdProductMapperExpand;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -42,6 +46,7 @@ public class ProductOrderServiceImpl implements IProductOrderService {
 
     @Resource
     private BdProductMapperExpand bdProductMapperExpand;
+
 
     /**
      * 通过分页方式查询所有产品订单信息
@@ -247,5 +252,8 @@ public class ProductOrderServiceImpl implements IProductOrderService {
 
         return ajaxJson;
     }
+
+
+
 
 }
