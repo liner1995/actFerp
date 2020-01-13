@@ -4,16 +4,17 @@
     @close="closeDialog"
     width="85%">
     <el-form :inline="true" ref="dataForm" :model="temp" label-position="left" label-width="120px">
-      <el-collapse v-model="collapseActiveName" @change="handleCollapseChange">
-        <el-collapse-item title="产品名称" name="1">
-          <ProductInfoCard :tempData="temp.productInfo"></ProductInfoCard>
-        </el-collapse-item>
-        
-        <el-collapse-item title="客户信息" name="2">
-          <CustomerInfoCard :tempData="temp.customerInfo"></CustomerInfoCard>
-        </el-collapse-item>
-      </el-collapse>
+      <el-tag>订单信息</el-tag>
+      <br/><br/>
+      <el-card class="box-card">
+        <OrderInfo :tempData="temp"></OrderInfo>
+      </el-card>
       <br/>
+      <el-tag>产品信息</el-tag>
+      <br/><br/>
+      <el-card class="box-card">
+        <ProductInfoCard :tempData="temp.productInfoList"></ProductInfoCard>
+      </el-card>
       <br/>
       <!--叶签操作合集-->
       <el-tabs type="border-card">
@@ -62,13 +63,14 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { selectAllOrderInfoAsPage, selectOrderDetailsByPrimary } from '@/api/productionProccess/productionProccess'
 import { initReplaceUpdateData, initReplaceAddData, parseTime, randomNum } from '@/utils/viewCompUtil'
 import ProductInfoCard from '@/views/product/compinfo/components/ProductInfoCard'
-import CustomerInfoCard from '@/views/product/compinfo/components/CustomerInfoCard'
+import OrderInfo from '@/views/product/compinfo/components/OrderInfo'
 
 export default {
   name: 'Productcompcontent',
-  components: { ProductInfoCard, CustomerInfoCard },
+  components: { ProductInfoCard, OrderInfo },
   props: ["replace", "title", "visiable", 'action', 'updateRow'],
   computed: {
     ...mapGetters([
@@ -77,37 +79,58 @@ export default {
   },
   data() {
     return {
-      collapseActiveName: '1', // 折叠面板默认打开
       contentVisiable: true, // dialog 显示框
       temp: {
-        // 产品信息
-        productInfo: {
-          productName: '1'
-        },
-        // 客户信息
-        customerInfo: {
-          customerName: '12'
-        }
-      }
+        contractNo: '', // 合同编号
+        customerCode: '', // 客户编号
+        pkPsndocShow: '', // 销售负责人
+        ts: '', // 下单日期
+        deliveryData: '', // 预计交货日期 无数据来源
+        orderType: '', // 订单类型 无数据来源
+        采购负责人: '', // 采购负责人
+        采购电话: '', // 采购电话
+        技术负责人: '', // 技术电话
+        执行标准: '', // 执行标准
+        taxinclud: '', // 是否含税
+        urgent: '', // 是否加急
+        收货地址: '', // 收货地址
+        收货联系人: '', // 收货联系人
+        收货电话: '', // 收货联系电话
+        transportType: '', // 运输方式
+      },
+      // 产品信息
+      productInfoList: []
     }
   },
   watch: {
     visiable() {
       this.contentVisiable = this.visiable
       if (this.title === '查看' && this.updateRow) {
-        this.temp = this.updateRow
+        this.initOrderDetailsInfo()
       }
     }
   },
   methods: {
+    // 初始化订单详情数据
+    initOrderDetailsInfo() {
+      if (this.updateRow && this.updateRow.pkProductOrder) {
+        let initParam = { pkProductOrder: this.updateRow.pkProductOrder }
+        selectOrderDetailsByPrimary(initParam).then((response) => {
+          if (response && response.success && response.object) {
+            this.temp = response.object
+            this.productInfoList = response.object.productInfoList
+            console.log(this.productInfoList)
+          }
+        })
+      } else {
+        this.$message({ message: '主键缺失，无法初始化页面数据！', type: 'warning' })
+      }
+    },
     closeDialog() { // 回调关闭Dialog
       this.$emit('close', null)
     },
     sureDialog() { // 确定保存回调Dialog
       this.$emit('close', actTemp)
-    },
-    handleCollapseChange(val) { // 监听折叠面板变化
-
     },
     restTemp() { // 刷新本界面的数据
       this.temp = {

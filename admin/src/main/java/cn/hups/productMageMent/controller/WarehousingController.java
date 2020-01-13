@@ -1,9 +1,7 @@
 package cn.hups.productMageMent.controller;
 
-import cn.hups.common.exception.ExceptionMsgConstract;
 import cn.hups.common.exception.GlobalException;
 import cn.hups.common.utils.AjaxJson;
-import cn.hups.common.utils.StringUtils;
 import cn.hups.productMageMent.po.WarehousingPo;
 import cn.hups.productMageMent.service.IWarehousingService;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.sql.SQLException;
-import java.util.List;
 
 /**
  * 物料入库Controller

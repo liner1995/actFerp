@@ -1,9 +1,6 @@
 package cn.hups.productMageMent.po;
 
-import cn.hups.customer.po.BdCustomerPo;
-import cn.hups.customer.po.BdInvoicePo;
-import cn.hups.productMageMent.entity.BdProduct;
-import cn.hups.salemage.po.BdProductPo;
+import cn.hups.salemage.entity.BdProduct;
 
 /**
  * 综合管理汇总PO

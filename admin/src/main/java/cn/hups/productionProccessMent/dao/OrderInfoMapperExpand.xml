@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hups.productionProccessMent.dao.OrderInfoMapperExpand">
+
+    <resultMap id="orderMageMentMapPo" type="cn.hups.productionProccessMent.po.OrderMageMentPo">
+        <id column="pkProductOrder" property="pkProductOrder" jdbcType="INTEGER"/>
+        <result column="pkCustomer" property="pkCustomer" jdbcType="INTEGER" />
+        <result column="pkPsndoc" property="pkPsndoc" jdbcType="INTEGER" />
+        <result column="pkTakeover" property="pkTakeover" jdbcType="INTEGER" />
+        <result column="materialSource" property="materialSource" jdbcType="CHAR" />
+        <result column="taxinclud" property="taxinclud" jdbcType="CHAR" />
+        <result column="urgent" property="urgent" jdbcType="CHAR" />
+        <result column="transportType" property="transportType" jdbcType="CHAR" />
+        <result column="paymentType" property="paymentType" jdbcType="CHAR" />
+        <result column="billState" property="billState" jdbcType="INTEGER" />
+        <result column="creator" property="creator" jdbcType="INTEGER" />
+        <result column="creatorShow" property="creatorShow" jdbcType="VARCHAR" />
+        <result column="creationtime" property="creationtime" jdbcType="VARCHAR" />
+        <result column="modifier" property="modifier" jdbcType="INTEGER" />
+        <result column="modifierShow" property="modifierShow" jdbcType="VARCHAR" />
+        <result column="modifiedtime" property="modifiedtime" jdbcType="VARCHAR" />
+        <result column="dr" property="dr" jdbcType="INTEGER" />
+        <result column="ts" property="ts" jdbcType="CHAR" />
+        <collection property="productInfoList" ofType="cn.hups.salemage.po.BdProductPo" select="selectProductInfoByPkProductOrder" column="pkProductOrder"/>
+    </resultMap>
+
+    <!--查询表中数据数量-->
+    <select id="countData" resultType="java.lang.Long">
+        SELECT
+        count( bpoh.pk_product_order )
+        FROM
+        bill_product_order_h bpoh
+        WHERE
+        bpoh.dr = 0
+        <if test="orderMageMentPo.billState != null">
+            AND bpoh.bill_state = #{orderMageMentPo.billState}
+        </if>
+        <if test="orderMageMentPo.taxinclud != null and orderMageMentPo.taxinclud != ''">
+            AND bpoh.taxinclud = #{orderMageMentPo.taxinclud}
+        </if>
+    </select>
+
+    <!--分页查询订单表数据-->
+    <select id="selectAllOrderInfoAsPage" resultType="cn.hups.productionProccessMent.po.OrderMageMentPo">
+        SELECT
+        bpoh.pk_product_order as pkProductOrder,
+        bpoh.contract_no as contractNo,
+        bpoh.pk_customer as pkCustomer,
+        bcuone.code as customerCode,
+        bcuone.name as customerName,
+        bcuone.tel as customerTel,
+        bcuone.corpaddress,
+        bpoh.pk_psndoc as pkPsndoc,
+        bpoh.pk_takeover as pkTakeover,
+        bpoh.material_source as materialSource,
+        bpoh.material_source as materialSourceShow,
+        bpoh.taxinclud,
+        bpoh.urgent,
+        bpoh.urgent as urgentShow,
+        bpoh.transport_type as transportType,
+        bpoh.transport_type as transportTypeShow,
+        bpoh.payment_type as paymentType,
+        bpoh.payment_type as paymentTypeShow,
+        bpoh.creator,
+        bcu.name as creatorShow,
+        bpoh.creationtime,
+        bpoh.modifier,
+        bcut.name as modifierShow,
+        bpoh.modifiedtime,
+        bpoh.dr,
+        bpoh.ts,
+        bpoh.bill_state as billState,
+        bpsn.psnname as pkPsndocShow
+        FROM
+        bill_product_order_h bpoh
+        LEFT JOIN bd_customer bcuone ON bcuone.pk_customer = bpoh.pk_customer AND bcuone.dr = 0
+        LEFT JOIN bd_customer bcu ON bpoh.pk_customer = bcu.pk_customer AND bcu.dr = 0
+        LEFT JOIN bd_customer bcut ON bpoh.modifier = bcut.pk_customer AND bcut.dr = 0
+        LEFT JOIN bd_psndoc bpsn ON bpoh.pk_psndoc = bpsn.pk_psndoc AND bpsn.dr = 0
+        WHERE
+        bpoh.dr = 0
+        <if test="orderMageMentPo.billState != null">
+            AND bpoh.bill_state = #{orderMageMentPo.billState}
+        </if>
+        <if test="orderMageMentPo.taxinclud != null and orderMageMentPo.taxinclud != ''">
+            AND bpoh.taxinclud = #{orderMageMentPo.taxinclud}
+        </if>
+        <if test="orderMageMentPo.pkProductOrder != null and orderMageMentPo.pkProductOrder != ''">
+            AND bpoh.pk_product_order = #{orderMageMentPo.pkProductOrder}
+        </if>
+    </select>
+
+    <!--根据订单主键查询 生产流程综合管理中所需的数据-->
+    <select id="selectOrderDetailsByPrimary" resultMap="orderMageMentMapPo">
+        SELECT
+        bpoh.pk_product_order as pkProductOrder,
+        bpoh.contract_no as contractNo,
+        bpoh.pk_customer as pkCustomer,
+        bcuone.code as customerCode,
+        bcuone.name as customerName,
+        bcuone.tel as customerTel,
+        bcuone.corpaddress,
+        bpoh.pk_psndoc as pkPsndoc,
+        bpoh.pk_takeover as pkTakeover,
+        bpoh.material_source as materialSource,
+        bpoh.taxinclud,
+        bpoh.urgent,
+        bpoh.transport_type as transportType,
+        bpoh.payment_type as paymentType,
+        bpoh.creator,
+        bcu.name as creatorShow,
+        bpoh.creationtime,
+        bpoh.modifier,
+        bcut.name as modifierShow,
+        bpoh.modifiedtime,
+        bpoh.dr,
+        bpoh.ts,
+        bpoh.bill_state as billState,
+        bpsn.psnname as pkPsndocShow
+        FROM
+        bill_product_order_h bpoh
+        LEFT JOIN bd_customer bcuone ON bcuone.pk_customer = bpoh.pk_customer AND bcuone.dr = 0
+        LEFT JOIN bd_customer bcu ON bpoh.pk_customer = bcu.pk_customer AND bcu.dr = 0
+        LEFT JOIN bd_customer bcut ON bpoh.modifier = bcut.pk_customer AND bcut.dr = 0
+        LEFT JOIN bd_psndoc bpsn ON bpoh.pk_psndoc = bpsn.pk_psndoc AND bpsn.dr = 0
+        WHERE
+        bpoh.dr = 0
+        <if test="orderMageMentPo.pkProductOrder != null and orderMageMentPo.pkProductOrder != ''">
+            AND bpoh.pk_product_order = #{orderMageMentPo.pkProductOrder}
+        </if>
+    </select>
+
+    <!--根据订单主键查询子表中的产品信息-->
+    <select id="selectProductInfoByPkProductOrder" resultType="cn.hups.salemage.po.BdProductPo" parameterType="java.lang.Integer">
+        SELECT
+            bpt.code,
+            bpt.name,
+            bpt.model,
+            bpob.product_num AS productNum,
+            bpt.isinstal,
+            bpt.istest,
+            bpt.isaging,
+            bpt.defense,
+            bpt.seal_technics AS sealTechnics,
+            bpt.make_dip AS makeDip,
+            bpt.make_test AS makeTest,
+            bpt.make_aging AS makeAging,
+            bpt.make_defense AS makeDefense,
+            bpt.steel_mesh_source AS steelMeshSource,
+            bpt.pcb_source AS pcbSource,
+            bpt.material_source AS materialSource
+        FROM
+          bill_product_order_b bpob
+        LEFT JOIN bd_product bpt ON bpob.pk_product = bpt.pk_product
+        AND bpt.dr = 0
+        WHERE
+        bpob.dr = 0
+        AND bpob.pk_product_order = #{pkProductOrder}
+    </select>
+
+</mapper>

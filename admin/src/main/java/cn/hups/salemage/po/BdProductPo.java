@@ -56,6 +56,9 @@ public class BdProductPo extends BdProduct {
     // 订单子表主键信息
     private Integer pkProductOrderB;
 
+    // 订单数量(订单产品数量)
+    private Integer productNum;
+
     public Integer getPkProductOrderB() {
         return pkProductOrderB;
     }
@@ -182,5 +185,13 @@ public class BdProductPo extends BdProduct {
 
     public void setMaterielPoList(List<BillMaterielPo> materielPoList) {
         this.materielPoList = materielPoList;
+    }
+
+    public Integer getProductNum() {
+        return productNum;
+    }
+
+    public void setProductNum(Integer productNum) {
+        this.productNum = productNum;
     }
 }

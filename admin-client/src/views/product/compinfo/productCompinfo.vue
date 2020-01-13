@@ -23,7 +23,7 @@
 <script>
 import Table from '@/components/viewcomp/Table'
 import Productcompcontent from '@/views/product/compinfo/content'
-import { listProductCustomer } from '@/api/productMageMent/productMageMent'
+import { selectAllOrderInfoAsPage } from '@/api/productionProccess/productionProccess'
 
 export default {
   name: "ProductCompinfo",
@@ -37,17 +37,15 @@ export default {
         updateRow: null // 更新时带过来的temp
       },
       columns: [
-        {prop: 'pkProduct', label: '产品主键', width: '10', primary: true},
-        {prop: 'productName', label: '产品名称', width: '160'},
-        {prop: 'productCode', label: '产品编码', width: '160'},
-        {prop: 'customerName', label: '客户名称', width: '160'},
-        {prop: 'customerCode', label: '客户编码', width: '160'},
-        {prop: 'customerTel', label: '客户联系方式', width: '220'},
-        {prop: 'psndocName', label: '销售负责人', width: '220'},
+        {prop: 'pkProductOrder', label: '订单主键', width: '10', primary: true},
+        {prop: 'contractNo', label: '合同编号', width: '160'},
+        {prop: 'customerCode', label: '客户编号', width: '160'},
+        {prop: 'pkPsndocShow', label: '销售负责人', width: '160'},
+        {prop: 'ts', label: '下单日期', width: '160'},
+        {prop: 'transportType', label: '运输方式', width: '160'},
       ],
       select: {
-        
-        //'select': listProductCustomer,
+        'select': selectAllOrderInfoAsPage,
         'queryParam': { dr: 0 }
       },
       top_btn: [
@@ -56,14 +54,16 @@ export default {
         {name: '查看',code: 'LOOKUP'},
       ],
       replace: [
-        {name: 'valid',replace: {0:"启用",1:"禁用"}}
+        {name: 'transportType',replace: { '0':"甲方负责",'1':"乙方负责" } }
       ]
     }
   },
   methods: {
     onButtonClick(param) { // 监控页面中所有的按钮点击事件
       if (param.btnCode === 'LOOKUP') {
+        this.content.updateRow = null
         this.openContent('查看', null)
+        this.content.updateRow = param.bindData
       }
     },
     openContent(title, action) { // 打开内容界面Dialog

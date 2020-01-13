@@ -72,21 +72,6 @@ export const constantRouterMap = [
       }
     ]
   },
-  {
-    path: '/testinfotable',
-    component: Layout,
-    redirect: '/testinfotable',
-    name: 'TESTINFOTABLE',
-    meta: { title: '测试界面', icon: 'example' },
-    children: [
-      {
-        path: 'testinfolist',
-        name: 'testinfolist',
-        component: () => import('@/views/testinfo/testinfo/testinfolist'),
-        meta: { title: '测试界面', icon: 'table' }
-      }
-    ]
-  },
 
   // {
   //   path: '/orders',

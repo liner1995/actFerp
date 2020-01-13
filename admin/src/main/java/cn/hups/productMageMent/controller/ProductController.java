@@ -29,7 +29,7 @@ public class ProductController {
     }
 
     /**
-     * 分页查询订单数据作为参照
+     * 分页查询订单数据
      * @param bdProductPo
      * @return
      */

@@ -9,7 +9,6 @@ import java.util.List;
  */
 public class BillProductOrderHPo extends BillProductOrderH {
 
-
     // 供料方式显示名称
     private String materialSourceShow;
 
@@ -22,8 +21,20 @@ public class BillProductOrderHPo extends BillProductOrderH {
     // 付款方式显示名称
     private String paymentTypeShow;
 
+    // 客户编号
+    private String customerCode;
+
+    // 销售负责人显示名称
+    private String pkPsndocShow;
+
     // 子表数据
     private List<BillProductOrderBPo> billProductOrderBPoList;
+
+    // 预计交货日期
+    private String deliveryData;
+
+    // 订单类型
+    private String orderType;
 
     public String getMaterialSourceShow() {
         return materialSourceShow;
@@ -57,6 +68,22 @@ public class BillProductOrderHPo extends BillProductOrderH {
         this.paymentTypeShow = paymentTypeShow;
     }
 
+    public String getCustomerCode() {
+        return customerCode;
+    }
+
+    public void setCustomerCode(String customerCode) {
+        this.customerCode = customerCode;
+    }
+
+    public String getPkPsndocShow() {
+        return pkPsndocShow;
+    }
+
+    public void setPkPsndocShow(String pkPsndocShow) {
+        this.pkPsndocShow = pkPsndocShow;
+    }
+
     public List<BillProductOrderBPo> getBillProductOrderBPoList() {
         return billProductOrderBPoList;
     }
@@ -65,4 +92,19 @@ public class BillProductOrderHPo extends BillProductOrderH {
         this.billProductOrderBPoList = billProductOrderBPoList;
     }
 
+    public String getDeliveryData() {
+        return deliveryData;
+    }
+
+    public void setDeliveryData(String deliveryData) {
+        this.deliveryData = deliveryData;
+    }
+
+    public String getOrderType() {
+        return orderType;
+    }
+
+    public void setOrderType(String orderType) {
+        this.orderType = orderType;
+    }
 }
