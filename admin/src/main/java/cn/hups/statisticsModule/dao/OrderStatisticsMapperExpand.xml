@@ -41,8 +41,9 @@
         AND bb.dr = 0
         LEFT JOIN bd_takeover bt on bh.pk_takeover = bt.pk_takeover
         AND bb.dr = 0
-        WHERE
+
         <if test="orderStatisticsPo != null and orderStatisticsPo.pkProductOrder != null">
+            WHERE
         bh.dr=0 AND bh.pk_product_order = #{orderStatisticsPo.pkProductOrder}
         </if>
 

@@ -3,9 +3,12 @@ package cn.hups.productionProccessMent.service.impl;
 import cn.hups.common.exception.ExceptionMsgConstract;
 import cn.hups.common.exception.GlobalException;
 import cn.hups.common.utils.AjaxJson;
+import cn.hups.customer.dao.BdCustomdocMapper;
+import cn.hups.customer.entity.BdCustomdoc;
 import cn.hups.productionProccessMent.dao.OrderInfoMapperExpand;
 import cn.hups.productionProccessMent.po.OrderMageMentPo;
 import cn.hups.productionProccessMent.service.IProductionProcessService;
+import cn.hups.salemage.po.BdProductPo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -17,6 +20,9 @@ import java.util.List;
 @Service("iProductionProcessService")
 public class ProductionProcessServiceImpl implements IProductionProcessService {
 
+
+    @Resource
+    private BdCustomdocMapper bdCustomdocMapper;
     @Resource
     private OrderInfoMapperExpand orderInfoMapperExpand;
 
@@ -53,8 +59,25 @@ public class ProductionProcessServiceImpl implements IProductionProcessService {
 
         try {
             if (orderMageMentPo != null && orderMageMentPo.getPkProductOrder() != null) {
-                OrderMageMentPo orderMageMentPo1 = orderInfoMapperExpand.selectOrderDetailsByPrimary(orderMageMentPo);
-                ajaxJson.setObj(orderMageMentPo1);
+                OrderMageMentPo resultList = orderInfoMapperExpand.selectOrderDetailsByPrimary(orderMageMentPo);
+                if(resultList!=null) {
+                    for (BdProductPo order : resultList.getProductInfoList()) {
+                        if (order.getPurchaseContacts() != null) {
+                            //获取采购联系人信息
+                            BdCustomdoc purchaseContacts = bdCustomdocMapper.selectByPrimaryKey(order.getPurchaseContacts());
+                            resultList.setPurchaseContactsName(purchaseContacts.getCustomname());
+                            resultList.setPurchaseContactsTel(purchaseContacts.getTelnum());
+                        }
+                        if (order.getSkillContacts() != null) {
+                            //获取技术联系人信息
+                            BdCustomdoc purchaseContacts = bdCustomdocMapper.selectByPrimaryKey(order.getSkillContacts());
+                            resultList.setSkillContactsName(purchaseContacts.getCustomname());
+                            resultList.setSkillContactsTel(purchaseContacts.getTelnum());
+                        }
+                    }
+                }
+
+                ajaxJson.setObj(resultList);
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -108,6 +108,7 @@
         bpoh.transport_type as transportType,
         bpoh.payment_type as paymentType,
         bpoh.creator,
+        bdoc.customname,
         bcu.name as creatorShow,
         bpoh.creationtime,
         bpoh.modifier,
@@ -116,13 +117,18 @@
         bpoh.dr,
         bpoh.ts,
         bpoh.bill_state as billState,
-        bpsn.psnname as pkPsndocShow
+        bpsn.psnname as pkPsndocShow,
+        btak.address,
+        btak.takeover_psn as takeoverPsn,
+        btak.takeover_tel as takeoverTel
         FROM
         bill_product_order_h bpoh
         LEFT JOIN bd_customer bcuone ON bcuone.pk_customer = bpoh.pk_customer AND bcuone.dr = 0
         LEFT JOIN bd_customer bcu ON bpoh.pk_customer = bcu.pk_customer AND bcu.dr = 0
         LEFT JOIN bd_customer bcut ON bpoh.modifier = bcut.pk_customer AND bcut.dr = 0
         LEFT JOIN bd_psndoc bpsn ON bpoh.pk_psndoc = bpsn.pk_psndoc AND bpsn.dr = 0
+        LEFT JOIN bd_takeover btak on bpoh.pk_takeover = btak.pk_takeover AND btak.dr = 0
+        LEFT JOIN bd_customdoc bdoc on btak.takeover_psn = bdoc.pk_customdoc AND bdoc.dr=0
         WHERE
         bpoh.dr = 0
         <if test="orderMageMentPo.pkProductOrder != null and orderMageMentPo.pkProductOrder != ''">
@@ -141,6 +147,9 @@
             bpt.istest,
             bpt.isaging,
             bpt.defense,
+            bpt.purchase_contacts as purchaseContacts,
+            bpt.skill_contacts as skillContacts,
+            bpt.exe_standard as exeStandard,
             bpt.seal_technics AS sealTechnics,
             bpt.make_dip AS makeDip,
             bpt.make_test AS makeTest,
