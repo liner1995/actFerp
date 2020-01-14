@@ -108,6 +108,8 @@
         bpoh.transport_type as transportType,
         bpoh.payment_type as paymentType,
         bpoh.creator,
+        bpoh.scheduledtime,
+        bpoh.order_type as orderType,
         bdoc.customname,
         bcu.name as creatorShow,
         bpoh.creationtime,

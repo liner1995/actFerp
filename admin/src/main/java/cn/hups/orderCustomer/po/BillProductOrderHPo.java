@@ -30,11 +30,7 @@ public class BillProductOrderHPo extends BillProductOrderH {
     // 子表数据
     private List<BillProductOrderBPo> billProductOrderBPoList;
 
-    // 预计交货日期
-    private String deliveryData;
 
-    // 订单类型
-    private String orderType;
 
     public String getMaterialSourceShow() {
         return materialSourceShow;
@@ -92,19 +88,5 @@ public class BillProductOrderHPo extends BillProductOrderH {
         this.billProductOrderBPoList = billProductOrderBPoList;
     }
 
-    public String getDeliveryData() {
-        return deliveryData;
-    }
 
-    public void setDeliveryData(String deliveryData) {
-        this.deliveryData = deliveryData;
-    }
-
-    public String getOrderType() {
-        return orderType;
-    }
-
-    public void setOrderType(String orderType) {
-        this.orderType = orderType;
-    }
 }

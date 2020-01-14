@@ -1,0 +1,3 @@
+2020/1/14
+1.在bill_product_order_h表里添加产品类型字段
+2.在bill_product_order_h表里添加预计交付时间字段

@@ -39,9 +39,14 @@ public class BillProductOrderH extends PagePoJo implements Serializable {
 
     private Integer billState;
 
+    private String scheduledtime;
+
+    private String orderType;
+
     private static final long serialVersionUID = 1L;
 
-    public BillProductOrderH(Integer pkProductOrder, Integer pkCustomer, String contractNo, Integer pkPsndoc, Integer pkTakeover, String materialSource, String taxinclud, String urgent, String transportType, String paymentType, Integer creator, String creationtime, Integer modifier, String modifiedtime, Integer dr, String ts, Integer billState) {
+
+    public BillProductOrderH(Integer pkProductOrder, Integer pkCustomer, String contractNo, Integer pkPsndoc, Integer pkTakeover, String materialSource, String taxinclud, String urgent, String transportType, String paymentType, Integer creator, String creationtime, Integer modifier, String modifiedtime, Integer dr, String ts, Integer billState, String scheduledtime, String orderType) {
         this.pkProductOrder = pkProductOrder;
         this.pkCustomer = pkCustomer;
         this.contractNo = contractNo;
@@ -59,6 +64,8 @@ public class BillProductOrderH extends PagePoJo implements Serializable {
         this.dr = dr;
         this.ts = ts;
         this.billState = billState;
+        this.scheduledtime = scheduledtime;
+        this.orderType = orderType;
     }
 
     public BillProductOrderH() {
@@ -71,6 +78,23 @@ public class BillProductOrderH extends PagePoJo implements Serializable {
 
     public void setPkProductOrder(Integer pkProductOrder) {
         this.pkProductOrder = pkProductOrder;
+    }
+
+    public String getScheduledtime() {
+        return scheduledtime;
+    }
+
+    public void setScheduledtime(String scheduledtime) {
+        this.scheduledtime = scheduledtime;
+    }
+
+    public String getorderType() {
+        return orderType;
+    }
+
+
+    public void setorderType(String orderType) {
+        this.orderType = orderType;
     }
 
     public Integer getPkCustomer() {
