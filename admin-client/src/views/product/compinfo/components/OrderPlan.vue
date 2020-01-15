@@ -1,15 +1,16 @@
 <template>
     <div>
+      1232131231232
     <!--基础列表界面-->
-    <Table :columns="columns" 
+    <!-- <Table :columns="columns" 
       :select="select" 
       :top_btn="top_btn" 
       :act_btn="act_btn" 
       :replace="replace"
       @onButtonClick="onButtonClick">
-    </Table>
+    </Table> -->
     <!--新增修改界面-->
-    <Testinfolistcontent 
+    <!-- <Testinfolistcontent 
       :replace="replace"
       :visiable="content.visiable" 
       :title="content.title"
@@ -17,16 +18,14 @@
       :updateRow="content.updateRow"
       @queryListData="queryListData"
       @close="closeContent">
-    </Testinfolistcontent>
+    </Testinfolistcontent> -->
   </div>
-
-    
 </template>
 <script>
 import Table from '@/components/viewcomp/Table'
 import {listProduction,insertProduction,deleteProductionByPks,updateProduction} from '@/api/productMageMent/productMageMent'
 export default {
-    name:"orderPlan",
+    name:"OrderPlan",
     components: { Table,Testinfolistcontent },
   data() {
     return {

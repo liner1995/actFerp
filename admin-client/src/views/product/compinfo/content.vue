@@ -19,6 +19,7 @@
       <!--叶签操作合集-->
       <el-tabs type="border-card">
         <el-tab-pane label="销售发起">
+          <OrderPlan></OrderPlan>
         </el-tab-pane>
 
         <el-tab-pane label="工艺审核">
@@ -68,11 +69,11 @@ import { selectAllOrderInfoAsPage, selectOrderDetailsByPrimary } from '@/api/pro
 import { initReplaceUpdateData, initReplaceAddData, parseTime, randomNum } from '@/utils/viewCompUtil'
 import ProductInfoCard from '@/views/product/compinfo/components/ProductInfoCard'
 import OrderInfo from '@/views/product/compinfo/components/OrderInfo'
-import orderPlan from '@/views/product/compinfo/components/OrderPlan'
+import OrderPlan from '@/views/product/compinfo/components/OrderPlan'
 
 export default {
   name: 'Productcompcontent',
-  components: { ProductInfoCard,OrderInfo,OrderPlan },
+  components: { ProductInfoCard, OrderInfo, OrderPlan },
   props: ["replace", "title", "visiable", 'action', 'updateRow'],
   computed: {
     ...mapGetters([
