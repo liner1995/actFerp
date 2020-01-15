@@ -76,18 +76,15 @@ export default {
   props: ["tempData"],
   data() {
     return {
-
     }
   },
   created() {
     console.log(this.tempData)
   },
   methods: {
-
   }
 }
 </script>
 
 <style>
-
 </style>
