@@ -8,7 +8,7 @@
 					<el-button type="primary">修改</el-button>
 				</div>
         <div class="listname">
-					<el-button type="primary">删除</el-button>
+					<el-button type="primary" @click="deleteOrderPlan">删除</el-button>
 				</div>
         <div class="listname">
 					<el-button type="primary">打印</el-button>
@@ -23,8 +23,9 @@
 				<el-button type="primary">记录</el-button>
 				</div>
 			</div>
-    <el-table :data="tableData" border
+    <el-table :data="tableData" border @selection-change="handleSelectionChange"
       style="width: 100%">
+      <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="pkProduction" label="主键" width="50"></el-table-column>
       <el-table-column prop="process" label="工序" width="120"></el-table-column>
       <el-table-column prop="workshop" label="生产车间" width="120"></el-table-column>
@@ -57,6 +58,7 @@ export default {
 				count: 0,
 				currentPage4: 1,
         tableData:[],
+        multipleSelection: [], // 选中行
   }
   },
   created(){
@@ -79,7 +81,33 @@ export default {
 			handleCurrentChange(val) {
 				this.page = val;
 				this.getdata();
-			}
+			},
+      handleSelectionChange(val) {
+        this.multipleSelection = val;
+      }，
+      deleteOrderPlan() {
+        // this.handleSelectionChange 在这里面找选中数据的主键
+        let pkArr = ''
+        if (this.handleSelectionChange) {
+          for (let index in this.handleSelectionChange) {
+            let selectOne = this.handleSelectionChange(index)
+            if (selectOne && selectOne.pkProduction) {
+              pkArr = pkArr + selectOne.pkProduction + ','
+            }
+          }
+        }
+        if (pkArr && pkArr.endsWith(',')) {
+          // 这里将这个字符串中的最后一个字符去掉 ','
+          let deleteParam = { pkProduction: pkArr }
+          deleteProductionByPks(deleteParam).then((response) => {
+            if (response && response.success) {
+              this.$message({ message: '删除成功', type: 'success' })
+            } else {
+              this.$message.error('删除失败')
+            }
+          })
+        }
+      }
   }
 };
 </script>
