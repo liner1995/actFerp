@@ -84,7 +84,7 @@ export default {
       },
       top_btn: [
         {name: '查询',code: 'QUERYDIALOG',action: listProduceQuote},
-        {name: '批量通过',code: 'BATCHOVERQUOTE',action: updateProduceQuote}
+        {name: '',code: 'BATCHOVERQUOTE',action: updateProduceQuote}
       ],
       act_btn: [
         {name: '报价',code: 'DOQUOTE', when: {'billState': [2]}, action: updateProduceQuote},
