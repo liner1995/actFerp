@@ -23,7 +23,7 @@ public interface IWarehouseService {
     AjaxJson insertWarehouse(WarehousePo warehousePo) throws GlobalException;
 
     /**
-     * 修改生产计划
+     * 修改库房备料
      * @param warehousePo
      * @return
      * @throws GlobalException
@@ -31,11 +31,19 @@ public interface IWarehouseService {
     AjaxJson updateWarehouse(WarehousePo warehousePo)throws GlobalException;
 
     /**
-     * 根据主键删除生产计划
+     * 根据主键删除库房备料
      * @param warehousePo
      * @return
      * @throws GlobalException
      */
     AjaxJson deleteWarehouseByPks(WarehousePo warehousePo)throws GlobalException;
+
+    /**
+     * 根据主键集合修改库房备料状态
+     * @param warehousePo
+     * @return
+     * @throws GlobalException
+     */
+    AjaxJson updateWarehouseStateByPks(WarehousePo warehousePo)throws GlobalException;
 
 }

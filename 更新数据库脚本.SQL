@@ -226,3 +226,12 @@ SET FOREIGN_KEY_CHECKS = 1;
 -- ----------------------------
 ALTER TABLE `bill_product_order_h` ADD COLUMN `order_type` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '0:自由态,1:生产订单,2:OEM,3:DEM,4:贸易模式' AFTER `urgent`;
 ALTER TABLE `bill_product_order_h` ADD COLUMN `scheduledtime` char(19) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '预计交货时间' AFTER `payment_type`;
+
+-- ----------------------------
+-- 2020/1/18 新增wf_warehouse字段
+-- ----------------------------
+ALTER TABLE `cyjc`.`wf_warehouse` ADD COLUMN `arrivaltime` char(19) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '物料到货时间' AFTER `wh_state`,
+ALTER TABLE `cyjc`.`wf_warehouse` ADD COLUMN `mpr_affirmtime` char(19) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'MPR确认时间' AFTER `arrivaltime`;
+ALTER TABLE `cyjc`.`wf_warehouse` ADD COLUMN `on_off_state` int(255) DEFAULT 0 COMMENT '开关：0启动，1暂停' AFTER `filefullnam`;
+
+

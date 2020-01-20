@@ -30,9 +30,11 @@
         </el-tab-pane>
 
         <el-tab-pane label="库房备料">
+          <OrderWarehouse></OrderWarehouse>
         </el-tab-pane>
 
         <el-tab-pane label="物料采购">
+          <OrderProcurement></OrderProcurement>
         </el-tab-pane>
 
         <el-tab-pane label="来料质检">
@@ -69,11 +71,14 @@ import { selectAllOrderInfoAsPage, selectOrderDetailsByPrimary } from '@/api/pro
 import { initReplaceUpdateData, initReplaceAddData, parseTime, randomNum } from '@/utils/viewCompUtil'
 import ProductInfoCard from '@/views/product/compinfo/components/ProductInfoCard'
 import OrderInfo from '@/views/product/compinfo/components/OrderInfo'
-import OrderPlan from '@/views/product/compinfo/components/OrderPlan'
+import OrderPlan from '@/views/product/compinfo/components/orderPlan/OrderPlan'
+import OrderWarehouse from '@/views/product/compinfo/components/orderPlan/OrderWarehouse'
+import OrderProcurement from '@/views/product/compinfo/components/orderPlan/OrderProcurement'
+
 
 export default {
   name: 'Productcompcontent',
-  components: { ProductInfoCard, OrderInfo,OrderPlan },
+  components: { ProductInfoCard, OrderInfo,OrderPlan,OrderWarehouse,OrderProcurement },
   props: ["replace", "title", "visiable", 'action', 'updateRow'],
   computed: {
     ...mapGetters([

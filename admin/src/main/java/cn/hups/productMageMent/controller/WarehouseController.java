@@ -42,7 +42,7 @@ public class WarehouseController {
     }
 
     /**
-     * 修改生产计划
+     * 修改库房备料
      * @param warehousePo
      * @return
      * @throws GlobalException
@@ -53,7 +53,7 @@ public class WarehouseController {
     }
 
     /**
-     * 根据主键删除生产计划
+     * 根据主键删除库房备料
      * @param warehousePo
      * @return
      * @throws GlobalException
@@ -61,5 +61,16 @@ public class WarehouseController {
     @RequestMapping("/deleteWarehouseByPks")
     public AjaxJson deleteWarehouseByPks(@RequestBody WarehousePo warehousePo)throws GlobalException{
         return iWarehouseService.deleteWarehouseByPks(warehousePo);
+    }
+
+    /**
+     * 根据主键修改库房备料状态
+     * @param warehousePo
+     * @return
+     * @throws GlobalException
+     */
+    @RequestMapping("/updateWarehouseStateByPks")
+    public AjaxJson updateWarehouseStateByPks(@RequestBody WarehousePo warehousePo)throws GlobalException{
+        return iWarehouseService.updateWarehouseStateByPks(warehousePo);
     }
 }

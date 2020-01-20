@@ -20,6 +20,7 @@ Vue.use(ElementUI, { locale })
 Vue.component('split-pane', VueSplitPane)
 
 Vue.config.productionTip = false
+Vue.config.devtools = true
 
 new Vue({
   el: '#app',

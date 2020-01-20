@@ -5,6 +5,9 @@
     pk_warehouse as pkWarehouse,
     pk_production as pkProduction,
     wh_state as whState,
+    arrivaltime,
+    on_off_state as onOffState,
+    mpr_affirmtime as mprAffirmtime,
     filename,
     filefullnam, creator, creationtime,
     modifier, modifiedtime, dr, ts
@@ -13,6 +16,25 @@
     <update id="deleteWarehouseByPs" parameterType="java.util.List">
         UPDATE wf_warehouse SET dr = 1
         WHERE pk_warehouse in
+        <foreach collection="pkArr" item="pk_warehouse" open="(" close=")" separator=",">
+            #{pk_warehouse}
+        </foreach>
+    </update>
+    <!--根据主键集合修改状态-->
+    <update id="updateWarehouseStartByPs" parameterType="java.util.List">
+        update wf_warehouse
+        set
+        wh_state = #{warehousePo.whState,jdbcType=INTEGER},
+        <if test="warehousePo != null and warehousePo.arrivaltime != null">
+            arrivaltime = #{warehousePo.arrivaltime,jdbcType=CHAR},
+        </if>
+        <if test="warehousePo != null and warehousePo.mprAffirmtime != null">
+            mpr_affirmtime = #{warehousePo.mprAffirmtime,jdbcType=CHAR},
+        </if>
+        modifier = #{warehousePo.modifier,jdbcType=INTEGER},
+        modifiedtime = #{warehousePo.modifiedtime,jdbcType=CHAR},
+        ts = #{warehousePo.ts,jdbcType=CHAR}
+        where pk_warehouse in
         <foreach collection="pkArr" item="pk_warehouse" open="(" close=")" separator=",">
             #{pk_warehouse}
         </foreach>
@@ -39,7 +61,20 @@
     <!--分页查询数据-->
     <select id="selectAllWarehousePoAsPage" resultType="cn.hups.productMageMent.po.WarehousePo">
         select
-        <include refid="Base_Column_List" />
+        pk_warehouse as pkWarehouse,
+        pk_production as pkProduction,
+        wh_state as whState,
+        arrivaltime,
+        on_off_state as onOffState,
+        mpr_affirmtime as mprAffirmtime,
+        filename,
+        filefullnam,
+        creator,
+        creationtime,
+        modifier,
+        modifiedtime,
+        dr,
+        ts
         from wf_warehouse
         where dr = 0
         <if test="warehousePo != null and warehousePo.pkWarehouse != null">

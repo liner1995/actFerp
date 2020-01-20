@@ -18,6 +18,16 @@ public interface WfWarehouseMapperExpand {
     int deleteWarehouseByPs(@Param("pkArr") List<Integer> pkArr) throws SQLException;
 
     /**
+     * 根据主键集合修改状态信息
+     * @param warehousePo
+     * @return
+     * @throws SQLException
+     */
+    int updateWarehouseStartByPs(@Param("warehousePo") WarehousePo warehousePo,@Param("pkArr") List<Integer> pkArr) throws SQLException;
+
+
+
+    /**
      * 查询表中数据数量
      * @param warehousePo
      * @return

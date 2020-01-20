@@ -79,7 +79,7 @@ public class WarehouseServiceImpl implements IWarehouseService {
 
 
     /**
-     * 修改生产计划
+     * 修改库房房备料
      * @param warehousePo
      * @return
      * @throws GlobalException
@@ -103,7 +103,7 @@ public class WarehouseServiceImpl implements IWarehouseService {
     }
 
     /**
-     * 根据主键删除生产计划
+     * 根据主键删除库房房备料
      * @param warehousePo
      * @return
      * @throws GlobalException
@@ -113,6 +113,37 @@ public class WarehouseServiceImpl implements IWarehouseService {
             if (warehousePo != null && StringUtils.isNotEmpty(warehousePo.getPkArr())) {
                 List<Integer> pkArr = StringUtils.idsParamToListInt(warehousePo.getPkArr());
                 wfWarehouseMapperExpand.deleteWarehouseByPs(pkArr);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new GlobalException(ExceptionMsgConstract.SERVER_THROWS_EXCEPTION_MSG);
+        }
+
+        return ajaxJson;
+    }
+
+    /**
+     * 根据主键集合修改库房房备料状态
+     * @param warehousePo
+     * @return
+     * @throws GlobalException
+     */
+    @Override
+    public AjaxJson updateWarehouseStateByPks(WarehousePo warehousePo)throws GlobalException{
+        try {
+            if (warehousePo != null && StringUtils.isNotEmpty(warehousePo.getPkArr()) && warehousePo.getWhState()!=null) {
+                List<Integer> pkArr = StringUtils.idsParamToListInt(warehousePo.getPkArr());
+                Auth auth = AuthUtil.getAuth();
+                //warehousePo.setModifier(auth.getUserid());
+                warehousePo.setModifiedtime(DateUtils.getKnowTsStr());
+                warehousePo.setTs(DateUtils.getKnowTsStr());
+                if(warehousePo.getWhState()==1){
+                    warehousePo.setMprAffirmtime(DateUtils.getKnowTsStr());
+                }
+                if(warehousePo.getWhState()==2){
+                    warehousePo.setArrivaltime(DateUtils.getKnowTsStr());
+                }
+                wfWarehouseMapperExpand.updateWarehouseStartByPs(warehousePo,pkArr);
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -284,6 +284,146 @@ public class WfWarehouseExample {
             return (Criteria) this;
         }
 
+        public Criteria andArrivaltimeIsNull() {
+            addCriterion("arrivaltime is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andArrivaltimeIsNotNull() {
+            addCriterion("arrivaltime is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andArrivaltimeEqualTo(String value) {
+            addCriterion("arrivaltime =", value, "arrivaltime");
+            return (Criteria) this;
+        }
+
+        public Criteria andArrivaltimeNotEqualTo(String value) {
+            addCriterion("arrivaltime <>", value, "arrivaltime");
+            return (Criteria) this;
+        }
+
+        public Criteria andArrivaltimeGreaterThan(String value) {
+            addCriterion("arrivaltime >", value, "arrivaltime");
+            return (Criteria) this;
+        }
+
+        public Criteria andArrivaltimeGreaterThanOrEqualTo(String value) {
+            addCriterion("arrivaltime >=", value, "arrivaltime");
+            return (Criteria) this;
+        }
+
+        public Criteria andArrivaltimeLessThan(String value) {
+            addCriterion("arrivaltime <", value, "arrivaltime");
+            return (Criteria) this;
+        }
+
+        public Criteria andArrivaltimeLessThanOrEqualTo(String value) {
+            addCriterion("arrivaltime <=", value, "arrivaltime");
+            return (Criteria) this;
+        }
+
+        public Criteria andArrivaltimeLike(String value) {
+            addCriterion("arrivaltime like", value, "arrivaltime");
+            return (Criteria) this;
+        }
+
+        public Criteria andArrivaltimeNotLike(String value) {
+            addCriterion("arrivaltime not like", value, "arrivaltime");
+            return (Criteria) this;
+        }
+
+        public Criteria andArrivaltimeIn(List<String> values) {
+            addCriterion("arrivaltime in", values, "arrivaltime");
+            return (Criteria) this;
+        }
+
+        public Criteria andArrivaltimeNotIn(List<String> values) {
+            addCriterion("arrivaltime not in", values, "arrivaltime");
+            return (Criteria) this;
+        }
+
+        public Criteria andArrivaltimeBetween(String value1, String value2) {
+            addCriterion("arrivaltime between", value1, value2, "arrivaltime");
+            return (Criteria) this;
+        }
+
+        public Criteria andArrivaltimeNotBetween(String value1, String value2) {
+            addCriterion("arrivaltime not between", value1, value2, "arrivaltime");
+            return (Criteria) this;
+        }
+
+        public Criteria andMprAffirmtimeIsNull() {
+            addCriterion("mpr_affirmtime is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMprAffirmtimeIsNotNull() {
+            addCriterion("mpr_affirmtime is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMprAffirmtimeEqualTo(String value) {
+            addCriterion("mpr_affirmtime =", value, "mprAffirmtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andMprAffirmtimeNotEqualTo(String value) {
+            addCriterion("mpr_affirmtime <>", value, "mprAffirmtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andMprAffirmtimeGreaterThan(String value) {
+            addCriterion("mpr_affirmtime >", value, "mprAffirmtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andMprAffirmtimeGreaterThanOrEqualTo(String value) {
+            addCriterion("mpr_affirmtime >=", value, "mprAffirmtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andMprAffirmtimeLessThan(String value) {
+            addCriterion("mpr_affirmtime <", value, "mprAffirmtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andMprAffirmtimeLessThanOrEqualTo(String value) {
+            addCriterion("mpr_affirmtime <=", value, "mprAffirmtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andMprAffirmtimeLike(String value) {
+            addCriterion("mpr_affirmtime like", value, "mprAffirmtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andMprAffirmtimeNotLike(String value) {
+            addCriterion("mpr_affirmtime not like", value, "mprAffirmtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andMprAffirmtimeIn(List<String> values) {
+            addCriterion("mpr_affirmtime in", values, "mprAffirmtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andMprAffirmtimeNotIn(List<String> values) {
+            addCriterion("mpr_affirmtime not in", values, "mprAffirmtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andMprAffirmtimeBetween(String value1, String value2) {
+            addCriterion("mpr_affirmtime between", value1, value2, "mprAffirmtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andMprAffirmtimeNotBetween(String value1, String value2) {
+            addCriterion("mpr_affirmtime not between", value1, value2, "mprAffirmtime");
+            return (Criteria) this;
+        }
+
         public Criteria andFilenameIsNull() {
             addCriterion("filename is null");
             return (Criteria) this;

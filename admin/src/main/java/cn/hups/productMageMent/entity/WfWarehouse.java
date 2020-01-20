@@ -11,6 +11,10 @@ public class WfWarehouse extends PagePoJo implements Serializable {
 
     private Integer whState;
 
+    private String arrivaltime;
+
+    private String mprAffirmtime;
+
     private String filename;
 
     private String filefullnam;
@@ -23,24 +27,37 @@ public class WfWarehouse extends PagePoJo implements Serializable {
 
     private String modifiedtime;
 
+    private Integer onOffState;
+
     private Integer dr;
 
     private String ts;
 
     private static final long serialVersionUID = 1L;
 
-    public WfWarehouse(Integer pkWarehouse, Integer pkProduction, Integer whState, String filename, String filefullnam, Integer creator, String creationtime, Integer modifier, String modifiedtime, Integer dr, String ts) {
+    public WfWarehouse(Integer pkWarehouse, Integer onOffState, Integer pkProduction, Integer whState, String arrivaltime, String mprAffirmtime, String filename, String filefullnam, Integer creator, String creationtime, Integer modifier, String modifiedtime, Integer dr, String ts) {
         this.pkWarehouse = pkWarehouse;
         this.pkProduction = pkProduction;
         this.whState = whState;
+        this.arrivaltime = arrivaltime;
+        this.mprAffirmtime = mprAffirmtime;
         this.filename = filename;
         this.filefullnam = filefullnam;
         this.creator = creator;
         this.creationtime = creationtime;
         this.modifier = modifier;
         this.modifiedtime = modifiedtime;
+        this.onOffState = onOffState;
         this.dr = dr;
         this.ts = ts;
+    }
+
+    public Integer getOnOffState() {
+        return onOffState;
+    }
+
+    public void setOnOffState(Integer onOffState) {
+        this.onOffState = onOffState;
     }
 
     public WfWarehouse() {
@@ -69,6 +86,22 @@ public class WfWarehouse extends PagePoJo implements Serializable {
 
     public void setWhState(Integer whState) {
         this.whState = whState;
+    }
+
+    public String getArrivaltime() {
+        return arrivaltime;
+    }
+
+    public void setArrivaltime(String arrivaltime) {
+        this.arrivaltime = arrivaltime == null ? null : arrivaltime.trim();
+    }
+
+    public String getMprAffirmtime() {
+        return mprAffirmtime;
+    }
+
+    public void setMprAffirmtime(String mprAffirmtime) {
+        this.mprAffirmtime = mprAffirmtime == null ? null : mprAffirmtime.trim();
     }
 
     public String getFilename() {

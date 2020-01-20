@@ -6,6 +6,8 @@
       <idArg column="pk_warehouse" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="pk_production" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="wh_state" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="arrivaltime" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="mpr_affirmtime" jdbcType="CHAR" javaType="java.lang.String" />
       <arg column="filename" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="filefullnam" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="creator" jdbcType="INTEGER" javaType="java.lang.Integer" />
@@ -75,8 +77,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    pk_warehouse, pk_production, wh_state, filename, filefullnam, creator, creationtime, 
-    modifier, modifiedtime, dr, ts
+    pk_warehouse, pk_production, wh_state, arrivaltime, mpr_affirmtime, filename, filefullnam, 
+    creator, creationtime, modifier, modifiedtime, dr, ts ,on_off_state
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.hups.productMageMent.entity.WfWarehouseExample" >
     select
@@ -110,28 +112,36 @@
   </delete>
   <insert id="insert" parameterType="cn.hups.productMageMent.entity.WfWarehouse" >
     insert into wf_warehouse (pk_warehouse, pk_production, wh_state, 
-      filename, filefullnam, creator, 
-      creationtime, modifier, modifiedtime, 
-      dr, ts)
+      arrivaltime, mpr_affirmtime, filename, 
+      filefullnam, creator, creationtime, 
+      modifier, modifiedtime, dr, 
+      ts)
     values (#{pkWarehouse,jdbcType=INTEGER}, #{pkProduction,jdbcType=INTEGER}, #{whState,jdbcType=INTEGER}, 
-      #{filename,jdbcType=VARCHAR}, #{filefullnam,jdbcType=VARCHAR}, #{creator,jdbcType=INTEGER}, 
-      #{creationtime,jdbcType=CHAR}, #{modifier,jdbcType=INTEGER}, #{modifiedtime,jdbcType=CHAR}, 
-      #{dr,jdbcType=INTEGER}, #{ts,jdbcType=CHAR})
+      #{arrivaltime,jdbcType=CHAR}, #{mprAffirmtime,jdbcType=CHAR}, #{filename,jdbcType=VARCHAR}, 
+      #{filefullnam,jdbcType=VARCHAR}, #{creator,jdbcType=INTEGER}, #{creationtime,jdbcType=CHAR}, 
+      #{modifier,jdbcType=INTEGER}, #{modifiedtime,jdbcType=CHAR}, #{dr,jdbcType=INTEGER}, 
+      #{ts,jdbcType=CHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.hups.productMageMent.entity.WfWarehouse" >
-    <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="pkWarehouse">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
     insert into wf_warehouse
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="pkWarehouse != null" >
         pk_warehouse,
       </if>
       <if test="pkProduction != null" >
+        on_off_state,
+      </if>
+      <if test="pkProduction != null" >
         pk_production,
       </if>
       <if test="whState != null" >
         wh_state,
+      </if>
+      <if test="arrivaltime != null" >
+        arrivaltime,
+      </if>
+      <if test="mprAffirmtime != null" >
+        mpr_affirmtime,
       </if>
       <if test="filename != null" >
         filename,
@@ -162,11 +172,20 @@
       <if test="pkWarehouse != null" >
         #{pkWarehouse,jdbcType=INTEGER},
       </if>
+      <if test="onOffState != null" >
+        #{onOffState,jdbcType=INTEGER},
+      </if>
       <if test="pkProduction != null" >
         #{pkProduction,jdbcType=INTEGER},
       </if>
       <if test="whState != null" >
         #{whState,jdbcType=INTEGER},
+      </if>
+      <if test="arrivaltime != null" >
+        #{arrivaltime,jdbcType=CHAR},
+      </if>
+      <if test="mprAffirmtime != null" >
+        #{mprAffirmtime,jdbcType=CHAR},
       </if>
       <if test="filename != null" >
         #{filename,jdbcType=VARCHAR},
@@ -212,6 +231,12 @@
       <if test="record.whState != null" >
         wh_state = #{record.whState,jdbcType=INTEGER},
       </if>
+      <if test="record.arrivaltime != null" >
+        arrivaltime = #{record.arrivaltime,jdbcType=CHAR},
+      </if>
+      <if test="record.mprAffirmtime != null" >
+        mpr_affirmtime = #{record.mprAffirmtime,jdbcType=CHAR},
+      </if>
       <if test="record.filename != null" >
         filename = #{record.filename,jdbcType=VARCHAR},
       </if>
@@ -246,6 +271,8 @@
     set pk_warehouse = #{record.pkWarehouse,jdbcType=INTEGER},
       pk_production = #{record.pkProduction,jdbcType=INTEGER},
       wh_state = #{record.whState,jdbcType=INTEGER},
+      arrivaltime = #{record.arrivaltime,jdbcType=CHAR},
+      mpr_affirmtime = #{record.mprAffirmtime,jdbcType=CHAR},
       filename = #{record.filename,jdbcType=VARCHAR},
       filefullnam = #{record.filefullnam,jdbcType=VARCHAR},
       creator = #{record.creator,jdbcType=INTEGER},
@@ -262,10 +289,19 @@
     update wf_warehouse
     <set >
       <if test="pkProduction != null" >
-        pk_production = #{pkProduction,jdbcType=INTEGER},
+      pk_production = #{pkProduction,jdbcType=INTEGER},
+      </if>
+      <if test="onOffState != null" >
+        on_off_state = #{onOffState,jdbcType=INTEGER},
       </if>
       <if test="whState != null" >
         wh_state = #{whState,jdbcType=INTEGER},
+      </if>
+      <if test="arrivaltime != null" >
+        arrivaltime = #{arrivaltime,jdbcType=CHAR},
+      </if>
+      <if test="mprAffirmtime != null" >
+        mpr_affirmtime = #{mprAffirmtime,jdbcType=CHAR},
       </if>
       <if test="filename != null" >
         filename = #{filename,jdbcType=VARCHAR},
@@ -298,6 +334,8 @@
     update wf_warehouse
     set pk_production = #{pkProduction,jdbcType=INTEGER},
       wh_state = #{whState,jdbcType=INTEGER},
+      arrivaltime = #{arrivaltime,jdbcType=CHAR},
+      mpr_affirmtime = #{mprAffirmtime,jdbcType=CHAR},
       filename = #{filename,jdbcType=VARCHAR},
       filefullnam = #{filefullnam,jdbcType=VARCHAR},
       creator = #{creator,jdbcType=INTEGER},
